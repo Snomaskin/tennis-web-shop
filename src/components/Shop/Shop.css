@@ -1,0 +1,22 @@
+.shop {
+    min-width: 100vw;
+}
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 210px);
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-left: 15px;
+    padding: 2rem;
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .products-container {
+      grid-template-columns: repeat(3, 210px);
+      margin-left: 0px;
+      gap: 5px;
+      row-gap: 15px;
+    }
+  }
