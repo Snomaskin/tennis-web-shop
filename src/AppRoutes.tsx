@@ -8,7 +8,7 @@ import { MatchPredictor } from "./components/apps/MatchPredictor.tsx";
 export const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<TextPage outerText={{title: 'Welcome!', p1: 'Try the functions of my website'}} />} />
+            <Route path="/" element={<TextPage outerText={{title: 'Welcome!', p1: 'Check out the prediction app and try out the shop.'}} />} />
             <Route path="/shop" element={<Shop />}/>
             <Route path="/shop/:category" element={<Shop />}/>
             <Route path="/about" element={<TextPage {...useText('about')}/>} />

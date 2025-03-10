@@ -1,12 +1,13 @@
-import tennisBall from "../../../assets/tennis-ball.png"
-import tennisRacket from "../../../assets/tennis-racket.png"
+import tennisBallImg from "../../../assets/tennis-ball.png"
+import tennisRacketImg from "../../../assets/tennis-racket.png"
 import appImg from "../../../assets/appImg.png"
+import apparelImg from "../../../assets/apparel.png"
 
 
 export type MenuItem = {
     menuName: string;
     menuId: string;
-    menuItems?: {label:string, id:string, path:string, img?: string}[];
+    menuItems?: { label:string, id:string, path:string, img?: string }[];
 };
 
 export const menuItems: MenuItem[] = [
@@ -21,8 +22,9 @@ export const menuItems: MenuItem[] = [
         menuName: 'Shop',
         menuId: 'shop',
         menuItems: [
-            {label: 'Racquets', id: 'racquets', path: '/shop', img: tennisRacket},
-            {label: 'Balls', id: 'balls', path: '/shop', img: tennisBall}  
+            { label: 'Racquets', id: 'racquets', path: '/shop', img: tennisRacketImg },
+            { label: 'Balls', id: 'balls', path: '/shop', img: tennisBallImg },
+            { label: 'Apparel', id: 'appaerel', path: '/apparel', img: apparelImg }
         ],
     },
     {    

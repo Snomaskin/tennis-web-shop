@@ -23,16 +23,9 @@ const aboutText: TextPageType = {
 const homeText: TextPageType = {
     outerText: {
         title: 'Welcome to my webpage!',
-        p1: `- Try the shop and checkout.`,
-        p2: `- Use the match predictor to see who is most likely to win the next match.`,
-        p3: `More exciting stuff is in development, so stay tuned.`,
+        p1: `Check out the prediction app and try out the shop.`,
+        p2: `More exciting stuff is in development, so stay tuned.`,
     },
-    innerText: {
-        title: 'Contact',
-        p1: 'Email: contact@myshop.com',
-        p2: 'Phone: (+46) 123-4567',
-        p3: 'Hours: Monday - Friday, 9:00 - 17:00',
-    }
 }
 const texts = { 
     about: aboutText, 
