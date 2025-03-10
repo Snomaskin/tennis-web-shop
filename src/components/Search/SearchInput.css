@@ -1,6 +1,7 @@
 .search-container {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .search-input {
@@ -11,7 +12,7 @@
     border: 1px solid #e5e7eb;
     border-radius: 6px;
     font-size: 14px;
-    width: 200px;
+    width: 300px;
     margin-left: 0.5rem;
     transform: translateX(-20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -29,7 +30,26 @@
 }
 
 @media (max-width: 768px) {
+    .search-container.searching {
+        position: absolute;
+        width: 80%;
+        max-width: 400px;
+        display: flex;
+        align-items: center;
+        background-color: var(--tennis-white);
+        z-index: 1001;
+    }
+    
+    .search-container.searching .nav {
+        background-color: transparent;
+    }
+    
     .search-input {
-        width: 120px;
+        position: relative;
+        left: 0;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 1rem;
+        transform: none;
     }
 }

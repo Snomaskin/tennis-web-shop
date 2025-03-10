@@ -8,6 +8,7 @@ import { SearchInput } from "../Search/SearchInput";
 import searchIcon from "../../assets/search.png"
 import closeIcon from "../../assets/close.png"
 
+
 interface NavbarProps {
     menuItems: MenuItem[]; 
 }
@@ -37,11 +38,11 @@ export const Navbar = ({ menuItems }: NavbarProps) => {
                     {ShowHoveredMenu === items.menuId && <HoveredMenu items={items} onItemClick={handleNavClick} />}
                 </div>
             ))}
-            <div className="nav-container search-container">
+            <div className={`nav-container search-container ${isSearching ? 'searching' : ''}`}>
                 <div className="nav" onClick={() => setIsSearching((prev) => !prev)}>
-                    {!isSearching ? <img className="search-icon" src={searchIcon}/> : <img className="search-icon" src={closeIcon} />}
+                    <img className="search-icon" src={ !isSearching ? searchIcon : closeIcon}/>
                 </div>
-            {isSearching && <SearchInput />}
+                {isSearching && <SearchInput />}
             </div>
             <div className="navbar-right">
                 <Cart />
