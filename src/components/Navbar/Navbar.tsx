@@ -7,6 +7,7 @@ import { useSearch } from "../Search/SearchContext";
 import { SearchInput } from "../Search/SearchInput";
 import searchIcon from "../../assets/search.png"
 import closeIcon from "../../assets/close.png"
+import classNames from "classnames";
 
 
 interface NavbarProps {
@@ -38,9 +39,11 @@ export const Navbar = ({ menuItems }: NavbarProps) => {
                     {ShowHoveredMenu === items.menuId && <HoveredMenu items={items} onItemClick={handleNavClick} />}
                 </div>
             ))}
-            <div className={`nav-container search-container ${isSearching ? 'searching' : ''}`}>
+            <div className={classNames('nav-container search-container', {
+                'searching': isSearching
+            })}>
                 <div className="nav" onClick={() => setIsSearching((prev) => !prev)}>
-                    <img className="search-icon" src={ !isSearching ? searchIcon : closeIcon}/>
+                    <img className="search-icon" src={!isSearching ? searchIcon : closeIcon}/>
                 </div>
                 {isSearching && <SearchInput />}
             </div>
@@ -63,7 +66,9 @@ const HoveredMenu = ({ items, onItemClick }: { items: MenuItem; onItemClick: () 
         <div className="dropdown">
             {items.menuItems?.map((item) => (
                 <Link
-                    className={`list-item ${activeItem === item.id ? "pop-out" : ""}`} 
+                    className={classNames('list-item', {
+                        'pop-out': activeItem === item.id
+                    })} 
                     key={item.id} 
                     to={`${item.path}/${item.id}`}
                     onClick={() => handleClick(item.id)}

@@ -15,7 +15,7 @@ export const CartItem = ({ cartItem, removeFromCart }: CartItemProps) => {
         <div className="image-wrapper">
           <img className="product-image" src={imageUrl} alt={name}/>
         </div>
-        <p className="product-price">${price}</p>
+        <p className="price">${price}</p>
         <span className="quantity">{quantity}x</span>
         <button onClick={() =>removeFromCart(id)} className="rm-item-btn">
           Remove

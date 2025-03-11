@@ -3,7 +3,8 @@ import { CartItem } from "../Shop/productCards/CartItem";
 import { CartItemType } from "../Shop/CartContext";
 import cartIcon from "../../assets/cart.png"
 import "./Cart.css"
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
+import classNames from "classnames";
 
 export const Cart = () => {
     const { cart, removeFromCart, clearCart, checkoutCart } = useCart();
@@ -11,7 +12,6 @@ export const Cart = () => {
     const [isSelected, setIsSelected] = useState<boolean>(false);
     const [isClicked, setIsClicked] = useState<boolean>(false);
     const cartRef = useRef<HTMLDivElement>(null);
-    console.log(isSelected)
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -44,7 +44,11 @@ export const Cart = () => {
     return (
         <div 
             ref={cartRef}
-            className={`cart-nav ${isClicked ? 'is-clicked' : ''} ${isSelected && !isClicked ? 'is-hovered' : ''}`}
+            className={classNames('cart-nav', {
+                'is-clicked': isClicked,
+                'is-hovered': isSelected && !isClicked
+                })
+            }
             onMouseEnter={() => setIsSelected(true)} 
             onMouseLeave={handleMouseLeave}
         >

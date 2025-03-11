@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { useSearch } from "./SearchContext";
 import "./SearchInput.css"
 import { useEffect, useState } from "react";
@@ -16,7 +17,10 @@ export const SearchInput = () => {
             type="text"
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search products..."
-            className={`search-input ${mounted ? "active" : ""}`} 
+            className={classNames('search-input', {
+                'active': mounted
+                })
+            }
             autoFocus
         />
     );

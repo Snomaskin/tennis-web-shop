@@ -1,6 +1,7 @@
 import { Product } from "./products";
 import "./ProductCard.css"
 import { useState, useRef, useEffect } from 'react';
+import classNames from "classnames";
 
 
 interface ProductCardProps {
@@ -56,7 +57,10 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
     <div className="card-wrapper">
       <article 
         ref={productRef}
-        className={`product-card ${isAnimating ? 'animate-to-cart' : ''}`}
+        className={classNames('product-card', {
+          'animate-to-cart': isAnimating
+          })
+        }
       >
         <div className="image-wrapper">
           <img className="product-image" src={imageUrl} alt={name} />
