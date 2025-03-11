@@ -11,11 +11,11 @@ export function App() {
     return (
       <div className='main background-container'>
         <Navbar menuItems={menuItems} />
-        {isSearching ? (
+        {isSearching ? 
           <SearchResults searchResults={searchResults} />
-        ) : (
+          : 
           <AppRoutes />
-        )}
+        }
       </div>
     );
   }

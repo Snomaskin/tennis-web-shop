@@ -3,8 +3,10 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom";
 import './main.css'
 import { CartProvider } from './components/Shop/CartContext.tsx';
-import { SearchProvider } from "./components/Search/SearchContext.tsx";
+import { SearchProvider } from './components/Search/SearchContext.tsx';
 import { App } from './App.tsx';
+import { ImagePreloader } from './components/Navbar/ImagePreloader.tsx';
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -12,9 +14,9 @@ createRoot(document.getElementById('root')!).render(
       <CartProvider>
         <SearchProvider>
           <App />
+          <ImagePreloader />
         </SearchProvider>
       </CartProvider>
     </BrowserRouter>
   </StrictMode>,
 );
-

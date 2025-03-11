@@ -8,12 +8,12 @@ import { MatchPredictor } from "./components/apps/MatchPredictor.tsx";
 export const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<TextPage outerText={{title: 'Welcome!', p1: 'Check out the prediction app and try out the shop.'}} />} />
+            <Route path="/" element={<TextPage {...useText('home')}/>} />
+            <Route path="/apps" element={<MatchPredictor />} />
+            <Route path="/apps/matchPredictor" element={<MatchPredictor />} />
             <Route path="/shop" element={<Shop />}/>
             <Route path="/shop/:category" element={<Shop />}/>
             <Route path="/about" element={<TextPage {...useText('about')}/>} />
-            <Route path="/home" element={<TextPage {...useText('home')}/>} />
-            <Route path="/apps/matchPredictor" element={<MatchPredictor />} />
-            <Route path="/apps" element={<MatchPredictor />} />
         </Routes>
-);}
+    );
+}
