@@ -24,7 +24,7 @@ export const menuItems: MenuItem[] = [
         menuItems: [
             { label: 'Racquets', id: 'racquets', path: '/shop', img: tennisRacketImg },
             { label: 'Balls', id: 'balls', path: '/shop', img: tennisBallImg },
-            { label: 'Apparel', id: 'appaerel', path: '/apparel', img: apparelImg }
+            { label: 'Apparel', id: 'apparel', path: '/shop', img: apparelImg }
         ],
     },
     {    

@@ -189,6 +189,68 @@ const products: ProductCategory = {
             imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw9bb8d8e3/images/007/062/03875800_000.jpg'
         }
         
+    ],
+    apparel: [
+        {
+            id: 'nikeDri-Fit',
+            name: 'Nike Dri-Fit Solid Polo',
+            price: 14,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw0241a198/images/004/458/55323000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'adidasClub',
+            name: 'Adidas Club Tennis Shorts',
+            price: 35,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw934e234c/images/005/462/17944000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'babolatPlay',
+            name: 'Babolat Play Tennis Skirt',
+            price: 42,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwd1c93727/images/009/466/06385000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'lacosteUltraDry',
+            name: 'Lacoste Ultra-Dry Performance Tee',
+            price: 39,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw67d31132/images/026/410/01300000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'wilsonTeamCap',
+            name: 'Wilson Team Tennis Cap',
+            price: 19,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw5b58556e/images/007/475/05531000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'headPerformance',
+            name: 'Head Performance Tennis Jacket',
+            price: 65,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw1a427a01/images/006/475/08567000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'filaFundamentals',
+            name: 'Fila Fundamentals Tennis Dress',
+            price: 55,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwb388c179/images/003/475/03806000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'nikeTourPremium',
+            name: 'Nike Tour Premium Wristbands',
+            price: 12,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw8a9f6faf/images/004/422/1777000000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'asicsCourtFF',
+            name: 'Asics Court FF Tennis Socks',
+            price: 15,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwaa39ea0e/images/020/462/05289000_000.jpg?q=80&sw=543'
+        },
+        {
+            id: 'kSwissHypercourt',
+            name: 'K-Swiss Hypercourt Tennis Shoe',
+            price: 22,
+            imageUrl: 'https://www.tennis-point.se/dw/image/v2/BBDP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwfd9ccdc6/images/014/162/02256000_0_1.jpg?q=80&sw=543'
+        }
     ]
 }
 
