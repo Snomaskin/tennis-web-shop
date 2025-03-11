@@ -41,3 +41,22 @@
 .rm-item-btn:hover {
   background-color: #c82333;
 }
+
+@media (max-width: 450px) {
+  .cart-item {
+    grid-template-columns: auto 0.9fr ;
+    gap: 10px;
+  }
+  
+  .cart-item .price,
+  .cart-item .quantity {
+    grid-column: 2;
+    justify-self: start;
+    margin-left: 15px;
+  }
+  
+  .rm-item-btn {
+    grid-column: 1;
+    grid-row:  2;
+  }
+}

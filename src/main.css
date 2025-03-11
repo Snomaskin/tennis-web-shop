@@ -1,6 +1,5 @@
 :root {
   line-height: 1.25;
-
   --tennis-white: #FFFFFF;
   --tennis-gray: #F7F7F7;
 }
@@ -27,4 +26,5 @@ body {
   min-height: 100vh;
   min-width: 100vw;
   padding-top: 60px;
+  overflow-x: hidden;
 }

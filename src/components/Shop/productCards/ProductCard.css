@@ -10,9 +10,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   max-width: 210px;
-  min-width: 200px;
   margin: 0 auto;
-  width: 100%;
   height: fit-content;
   background-color: white;
   transform-origin: center;
@@ -99,7 +97,7 @@
 
 @media (max-width: 768px) {
   .product-card {
-    width: 80%;
+    width: 90%;
   }
 
   .image-wrapper {
@@ -119,5 +117,35 @@
   .add-to-cart-btn {
       padding: 6px 12px;
       font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-wrapper {
+    padding: 2px 0;
+    max-width: 180px;
+  }
+  .product-card {
+    min-width: 80px;
+  }
+
+  .image-wrapper {
+      height: 100px;
+  }
+
+  .product-name {
+      font-size: 14px;
+      padding: 0 0.5rem;
+      width: 90%;
+  }
+
+  .product-price {
+      font-size: 14px;
+      padding: 0 0.5rem;
+  }
+
+  .add-to-cart-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
   }
 }
