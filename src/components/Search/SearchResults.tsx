@@ -1,7 +1,7 @@
 import { ProductCard } from "../Shop/productCards/ProductCard";
 import { Product } from "../Shop/productCards/products";
 import { TextPage } from "../TextCard/TextCard";
-import { useCart } from "../Shop/CartContext";
+import { useCart } from "../Shop/Cart/CartContext";
 import "../Shop/Shop.css";
 
 

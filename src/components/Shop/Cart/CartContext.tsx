@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import type { Product } from "./productCards/products";
+import type { Product } from "../productCards/products";
 
 
 export interface CartItemType extends Product {

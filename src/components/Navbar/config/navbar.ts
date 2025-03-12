@@ -4,13 +4,13 @@ import appImg from "../../../assets/appImg.png"
 import apparelImg from "../../../assets/apparel.png"
 
 
-export type MenuItem = {
+export type NavItem = {
     menuName: string;
     menuId: string;
     menuItems?: { label:string, id:string, path:string, img?: string }[];
 };
 
-export const menuItems: MenuItem[] = [
+export const navItems: NavItem[] = [
     {
         menuName: 'Apps',
         menuId: 'apps',

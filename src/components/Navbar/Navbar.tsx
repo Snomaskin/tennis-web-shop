@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { MenuItem } from "./config/navbar";
+import { NavItem } from "./config/navbar";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { Cart } from "./Cart";
+import { Cart } from "../Shop/Cart/Cart";
 import { useSearch } from "../Search/SearchContext";
 import { SearchInput } from "../Search/SearchInput";
 import searchIcon from "../../assets/search.png"
@@ -11,10 +11,10 @@ import classNames from "classnames";
 
 
 interface NavbarProps {
-    menuItems: MenuItem[]; 
+    navItems: NavItem[]; 
 }
 
-export const Navbar = ({ menuItems }: NavbarProps) => {
+export const Navbar = ({ navItems }: NavbarProps) => {
     const [ShowHoveredMenu, setShowHoveredMenu] = useState<string | null>(null);
     const { isSearching, setIsSearching } = useSearch()
 
@@ -24,7 +24,7 @@ export const Navbar = ({ menuItems }: NavbarProps) => {
 
     return (
         <nav className="navbar">
-            {menuItems.map((items) => (
+            {navItems.map((items) => (
                 <div 
                     className="nav-container" 
                     key={items.menuId}
@@ -54,7 +54,7 @@ export const Navbar = ({ menuItems }: NavbarProps) => {
     );
 };
 
-const HoveredMenu = ({ items, onItemClick }: { items: MenuItem; onItemClick: () => void; }) => {
+const HoveredMenu = ({ items, onItemClick }: { items: NavItem; onItemClick: () => void; }) => {
     const [activeItem, setActiveItem] = useState<string | null>(null);
 
     const handleClick = (id: string) => {

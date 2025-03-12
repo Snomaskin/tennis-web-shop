@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
-import { menuItems } from './config/navbar';
+import { navItems } from './config/navbar';
 
 
 export const ImagePreloader: React.FC = () => {
   useEffect(() => {
     const imagesToPreload: string[] = [];
     
-    menuItems.forEach(menuItem => {
-      if (menuItem.menuItems) {
-        menuItem.menuItems.forEach(item => {
+    navItems.forEach(item => {
+      if (item.menuItems) {
+        item.menuItems.forEach(item => {
           if (item.img) {
             imagesToPreload.push(item.img);
           }

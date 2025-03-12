@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { ProductCard } from "./productCards/ProductCard";
 import { products, Product } from "./productCards/products";
-import { useCart } from "./CartContext";
+import { useCart } from "./Cart/CartContext";
 import { TextPage } from "../TextCard/TextCard";
 import "./Shop.css"
 

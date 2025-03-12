@@ -1,10 +1,11 @@
-import { useCart } from "../Shop/CartContext";
-import { CartItem } from "../Shop/productCards/CartItem";
-import { CartItemType } from "../Shop/CartContext";
-import cartIcon from "../../assets/cart.png"
+import { useCart } from "./CartContext";
+import { CartItem } from "../productCards/CartItem";
+import { CartItemType } from "./CartContext";
+import cartIcon from "../../../assets/cart.png"
 import "./Cart.css"
 import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
+
 
 export const Cart = () => {
     const { cart, removeFromCart, clearCart, checkoutCart } = useCart();
