@@ -1,4 +1,4 @@
-import type { CartItemType } from "../CartContext";
+import type { CartItemType } from "../Cart/CartContext";
 import "./CartItem.css"
 
 
