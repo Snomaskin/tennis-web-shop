@@ -94,6 +94,7 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
   const goToStep = (step: CheckoutStep) => {
     setCurrentStep(step);
   };
+
   const resetCheckout = () => {
     setCurrentStep('summary');
     setShippingInfo(defaultShippingInfo);

@@ -1,18 +1,19 @@
-.confirmation-wrapper {
+.review-wrapper {
     display: grid;
     grid-template-columns: auto 1fr; 
     gap: 20px; 
     align-items: start; 
-}
-
-.confirmation-wrapper .checkout-wrapper h2 {
-    padding-left: 50px;
+    
 }
 
 .shipping-payment-container {
+    padding-top: 35px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+.shipping-payment-container .checkout-btns {
+    padding: 0px 90px;
 }
 
 .info-card {
