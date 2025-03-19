@@ -13,7 +13,7 @@
     text-align: left;
 }
 
-input[type="text"] {
+.form-field input[type="text"] {
     height: 35px;
     width: 100%;
     padding: 8px;
