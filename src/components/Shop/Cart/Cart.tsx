@@ -1,6 +1,5 @@
 import { useCart } from "./CartContext";
 import { CartItem } from "../productCards/CartItem";
-import { CartItemType } from "./CartContext";
 import cartIcon from "../../../assets/cart.png"
 import "./Cart.css"
 import { useState, useRef, useEffect } from "react";
@@ -80,7 +79,7 @@ export const Cart = () => {
     );
 };
 
-const CartBtns = ({ clearCart, checkoutCart }: { clearCart: () => void; checkoutCart: () => CartItemType[] }) => (
+const CartBtns = ({ clearCart, checkoutCart }: { clearCart: () => void; checkoutCart: () => void }) => (
     <div className="cart-footer">
         <button onClick={() => clearCart()} className="clear-cart-btn">
             Clear

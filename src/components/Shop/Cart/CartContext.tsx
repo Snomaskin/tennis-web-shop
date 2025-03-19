@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import type { Product } from "../productCards/products";
 
 
@@ -11,7 +12,7 @@ type CartContextType = {
     addToCart: (product: Product) => void,
     removeFromCart: (id: Product['id']) => void,
     clearCart: () => void;
-    checkoutCart: () => CartItemType[];
+    checkoutCart: () => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -23,6 +24,8 @@ export const CartProvider = ( { children }: { children: ReactNode }) => {
     });
 
     useEffect(() => (localStorage.setItem("cart", JSON.stringify(cart))), [cart])
+    const navigate = useNavigate();
+
 
     const addToCart = (product: Product) => {
         setCart((prevCart) => {
@@ -42,7 +45,7 @@ export const CartProvider = ( { children }: { children: ReactNode }) => {
 
     const clearCart = () => setCart([]);
 
-    const checkoutCart = () => (cart);
+    const checkoutCart = () => navigate('/checkout');
 
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, checkoutCart }}>

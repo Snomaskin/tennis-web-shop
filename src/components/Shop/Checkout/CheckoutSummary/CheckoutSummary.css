@@ -1,0 +1,30 @@
+.checkout-wrapper, .checkout-cart {
+    list-style: none;
+    width: fit-content;
+}
+
+.checkout-wrapper h2 {
+    padding-left: 50px;
+}
+
+.checkout-item {
+    width: 20rem;
+}
+.checkout-footer {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: flex-end; 
+    width: 100%;
+  }
+.checkout-total {
+    gap: 15px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    font-size: 15px;
+    text-align: right;    
+    width: fit-content;
+}

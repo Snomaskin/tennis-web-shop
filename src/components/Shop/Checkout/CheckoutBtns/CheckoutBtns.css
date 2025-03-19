@@ -1,0 +1,44 @@
+.checkout-btns {
+    display: flex;
+    padding: 5px;
+    gap: 10px;
+}
+
+.prev-btn, .next-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.next-btn {
+    background-color: #2563eb;
+    color: white;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+}
+
+.next-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.15);
+}
+
+.prev-btn {
+    background-color: #f7e600; 
+    color: #333; 
+    border: 1px solid #e5c100;
+}
+
+.prev-btn:hover {
+    background-color: #e5c100; 
+    color: #222;
+    border-color: #d4af00;
+    transform: translateY(-1px);
+}
+
+
+
+

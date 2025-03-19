@@ -1,0 +1,33 @@
+.confirmation-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr; 
+    gap: 20px; 
+    align-items: start; 
+}
+
+.confirmation-wrapper .checkout-wrapper h2 {
+    padding-left: 50px;
+}
+
+.shipping-payment-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 250px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.shipping-wrapper,
+.payment-wrapper {
+    padding-right: 10px;
+}
