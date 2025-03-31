@@ -1,9 +1,7 @@
 .review-wrapper {
     display: grid;
     grid-template-columns: auto 1fr; 
-    gap: 20px; 
-    align-items: start; 
-    
+    gap: 5px; 
 }
 
 .shipping-payment-container {

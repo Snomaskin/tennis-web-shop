@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { useCart } from "../Cart/CartContext";
 
 
 export type CheckoutStep = 'summary' | 'shipping' | 'payment' | 'review' | 'confirmation';
@@ -51,6 +52,7 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('summary');
   const [shippingInfo, setShippingInfo] = useState<ShippingInfo>(defaultShippingInfo);
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>(defaultPaymentInfo);
+  const { cart } = useCart();
   
   const updateShippingInfo = (info: Partial<ShippingInfo>) => {
     setShippingInfo(prev => ({ ...prev, ...info }));
@@ -72,8 +74,12 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
         setCurrentStep('review');
         break;
       case 'review':
-        setCurrentStep('confirmation');
-        break;
+        if (cart.length > 0) {
+          setCurrentStep('confirmation');
+          break;
+        } else {
+          break;
+        }
     }
   };
 
@@ -86,7 +92,7 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
         setCurrentStep('shipping');
         break;
       case 'review':
-        setCurrentStep('payment');
+          setCurrentStep('payment');
         break;
     }
   };

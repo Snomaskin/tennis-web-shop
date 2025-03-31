@@ -1,59 +1,75 @@
-import { FormEvent, useState } from "react";
+import { useForm, FieldError } from "react-hook-form";
 import { PaymentInfo, ShippingInfo, useCheckout } from "../CheckoutContext";
 import { CheckoutBtns } from "../CheckoutBtns/CheckoutBtns";
+import { validationRules } from "./validationRules";
 import "./CheckoutForm.css";
 
 
 type FormTypes = "shipping" | "payment";
-type FormDataType = ShippingInfo | PaymentInfo;
 
 export const CheckoutForm = ({ formType }: { formType: FormTypes }) => {
-    const { paymentInfo, updatePaymentInfo, shippingInfo, updateShippingInfo, nextStep } = useCheckout();
+  const { paymentInfo, updatePaymentInfo, shippingInfo, updateShippingInfo, nextStep } = useCheckout();
+  
+  const isShippingForm = (formType: FormTypes): formType is 'shipping' => { 
+    return formType === 'shipping'; 
+  };
+  
+  const initialData = isShippingForm(formType) ? shippingInfo : paymentInfo;
+  const formTitle = isShippingForm(formType) ? "Shipping Info" : "Payment Info";
+  
+  type FormData = typeof initialData;
+  
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors } 
+  } = useForm<FormData>({
+    defaultValues: initialData
+  });
+  
+  const onSubmit = (data: FormData) => {
+    if (isShippingForm(formType)) {
+      updateShippingInfo(data as ShippingInfo);
+    } else {
+      updatePaymentInfo(data as PaymentInfo);
+    }
+    nextStep();
+  };
+  
+  const getValidationRules = (field: string) => {
+    const rules = formType === 'shipping' ? validationRules.shipping : validationRules.payment;
+    return (rules as any)[field] || {};
+  };
 
-    const initialData = formType === "shipping" ? shippingInfo : paymentInfo;
-    const [formData, setFormData] = useState<FormDataType>(initialData);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-
-        if (formType === "shipping") {
-            updateShippingInfo(formData as ShippingInfo);
-        } else {
-            updatePaymentInfo(formData as PaymentInfo);
-        }
-
-        nextStep();
-    };
-
-    const fieldsToDisplay = formType === "shipping" ? shippingInfo : paymentInfo;
-    const formTitle = formType === "shipping" ? "Shipping Info" : "Payment Info";
-
-    return (
-        <div className="form-wrapper">
-            <form className="checkout-form" onSubmit={handleSubmit}>
-                <h2>{formTitle}</h2>
-                {Object.keys(fieldsToDisplay).map((field) => (
-                    <div className="form-field" key={field}>
-                        <label htmlFor={field}>
-                            {field.charAt(0).toUpperCase() + field.slice(1)}
-                        </label>
-                        <input
-                            type="text"
-                            id={field}
-                            name={field}
-                            value={(formData as any)[field]}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                ))}
-                <CheckoutBtns onSubmit={handleSubmit} />
-            </form>
-        </div>
-    );
+  return (
+    <div className="form-wrapper">
+      <form className="checkout-form" onSubmit={handleSubmit(onSubmit)}>
+        <h2>{formTitle}</h2>
+        
+        {Object.keys(initialData).map((field) => {
+          const fieldError = errors[field as keyof FormData] as FieldError | undefined;
+          
+          return (
+            <div className="form-field" key={field}>
+              <label htmlFor={field}>
+                {field.charAt(0).toUpperCase() + field.slice(1)}
+              </label>
+              <input
+                id={field}
+                type="text"
+                {...register(field as keyof FormData, getValidationRules(field))}
+              />
+              {fieldError && (
+                <div className="error">
+                  {fieldError.message}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        
+        <CheckoutBtns onSubmit={handleSubmit(onSubmit)} />
+      </form>
+    </div>
+  );
 };
