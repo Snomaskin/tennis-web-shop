@@ -60,7 +60,7 @@ export const CheckoutForm = ({ formType }: { formType: FormTypes }) => {
                 {...register(field as keyof FormData, getValidationRules(field))}
               />
               {fieldError && (
-                <div className="error">
+                <div className="form-error">
                   {fieldError.message}
                 </div>
               )}
