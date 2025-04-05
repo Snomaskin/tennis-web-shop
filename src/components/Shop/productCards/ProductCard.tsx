@@ -1,4 +1,4 @@
-import { Product } from "./products";
+import { Product } from "../../../assets/products";
 import "./ProductCard.css"
 import { useState, useRef, useEffect } from 'react';
 import classNames from "classnames";
