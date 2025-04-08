@@ -7,6 +7,7 @@ import { SearchProvider } from './components/Search/SearchContext.tsx';
 import { App } from './App.tsx';
 import { ImagePreloader } from './components/Navbar/ImagePreloader.tsx';
 import { CheckoutProvider } from './components/Shop/Checkout/CheckoutContext.tsx';
+import { ShopProvider } from './components/Shop/ShopContext.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -14,10 +15,12 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <CartProvider>
         <CheckoutProvider>
-          <SearchProvider>
-            <App />
-            <ImagePreloader />
-          </SearchProvider>
+          <ShopProvider>
+            <SearchProvider>
+              <App />
+              <ImagePreloader />
+            </SearchProvider>
+          </ShopProvider>
         </CheckoutProvider>
       </CartProvider>
     </BrowserRouter>

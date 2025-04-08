@@ -1,14 +1,16 @@
 .shop {
-    min-width: 100vw;
+  display: flex;
+  min-width: 100vw;
+  align-items: flex-start;
 }
 .products-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 210px);
-    gap: 15px;
-    margin-left: 15px;
-    padding: 2rem;
-    width: 100%;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 210px);
+  gap: 15px;
+  margin-left: 15px;
+  padding: 2rem;
+  width: 100%;
+}
   
 @media (max-width: 768px) {
   .products-container {

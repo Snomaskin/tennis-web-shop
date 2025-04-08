@@ -6,16 +6,16 @@ import { useSearch } from './components/Search/SearchContext';
 
 
 export function App() {
-    const { searchResults, isSearching } = useSearch();
-  
-    return (
-      <div className='main background-container'>
-        <Navbar navItems={navItems} />
-        {isSearching ? 
-          <SearchResults searchResults={searchResults} />
-          : 
-          <AppRoutes />
-        }
-      </div>
-    );
-  }
+  const {  isSearching } = useSearch();
+
+  return (
+    <div className='main background-container'>
+      <Navbar navItems={navItems} />
+      {isSearching ? 
+        <SearchResults />
+        : 
+        <AppRoutes />
+      }
+    </div>
+  );
+}

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Product, products } from '../Shop/productCards/products';
+import { Product, products } from '../../assets/products';
 
 
 interface SearchContextType {
@@ -17,17 +17,17 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
 
     const handleSearch = (searchTerm: string) => {
         if (!searchTerm.trim()) {
-            setSearchResults([]);
-            return;
+          setSearchResults([]);
+          return;
         }
 
         const searchTermLowerCase = searchTerm.toLowerCase();
         const results = Object.values(products)
-            .flat()
-            .filter(product => 
-                product.name.toLowerCase().includes(searchTermLowerCase)
-            )
-            .slice(0, 5);
+          .flat()
+          .filter(product => 
+              product.name.toLowerCase().includes(searchTermLowerCase)
+          )
+          .slice(0, 5);
         
         setSearchResults(results);
     };

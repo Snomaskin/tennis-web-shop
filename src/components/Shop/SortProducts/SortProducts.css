@@ -1,0 +1,56 @@
+.filter-container {
+  min-height: 100vh;
+  align-self: stretch;
+  min-width: 150px;
+  padding: 2rem 1rem;
+  border-right: 1px solid #ddd;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.filter-container h3 {
+  margin: 0;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.filter-option label {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.filter-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+.filter-option button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filter-option button:hover {
+  background-color: #f1f3f5;
+  border-radius: 5px;
+}
+
+.filter-option button img {
+  width: 16px;
+  height: 16px;
+}
