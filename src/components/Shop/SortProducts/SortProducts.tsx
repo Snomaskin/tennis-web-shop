@@ -5,7 +5,7 @@ import filterArrows from "../../../assets/filter-arrows.png";
 import "./SortProducts.css"
 
 
-export const SortProducts = () => {
+export const SortProducts = ({ title }: { title?: string }) => {
   const { sortProducts, options } = useShop();
 
   const getSelectedOption = (): SortField | undefined => {
@@ -27,6 +27,7 @@ export const SortProducts = () => {
 
   return (
     <div className="filter-container">
+      <h2>{title}</h2>
       <h3>Sort by:</h3>
       {filterOptions.map(item => {
         const key = item.key as SortField;

@@ -1,18 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { ProductCard } from "./productCards/ProductCard";
 import { Product, products } from "../../assets/products.ts"
-import { useCart } from "./Cart/CartContext";
 import { useShop } from "./ShopContext.tsx";
 import { TextPage } from "../TextCard/TextCard";
-import { SortProducts } from "./SortProducts/SortProducts.tsx";
+import { RenderProducts } from "./RenderProducts/RenderProducts.tsx";
 import "./Shop.css"
 
 
 export const Shop = () => {
     const { category } = useParams<{category?: string}>();
-    const { addToCart } = useCart();
     const { displayedProducts, setDisplayedProducts } = useShop();
+    const title = category ? category.charAt(0).toUpperCase() + category.slice(1) : '';
 
     useEffect(() => {
       if (category) {
@@ -21,24 +19,12 @@ export const Shop = () => {
     }, [category, setDisplayedProducts]);
 
     return (
-      displayedProducts.length > 0 ? renderCategory(displayedProducts, addToCart) : renderLandingShop()
+      displayedProducts.length > 0 ? renderCategory(displayedProducts, title) : renderLandingShop()
     );
 }
 
-const renderCategory = (displayedProducts: Product[], addToCart: (item: Product) => void) => (
-      <div className="shop">
-        <SortProducts />
-          <div className="products-container">
-              {displayedProducts.map((item) => (
-                  <ProductCard 
-                    key={item.id}
-                    product={item}
-                    onAddToCart={addToCart}
-                  />
-              ))}
-          </div>
-          
-      </div>
+const renderCategory = (displayedProducts: Product[], title: string | undefined) => (
+  <RenderProducts products={displayedProducts} title={title} />
 );
 
 const renderLandingShop = () => (

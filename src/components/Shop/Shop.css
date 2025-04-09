@@ -3,6 +3,7 @@
   min-width: 100vw;
   align-items: flex-start;
 }
+
 .products-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, 210px);
