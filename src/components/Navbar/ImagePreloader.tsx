@@ -1,26 +1,14 @@
 import { useEffect } from 'react';
 import { navItems } from './config/navbar';
+import { preloadImages } from '../../utils/preloadImages';
 
 
 export const ImagePreloader: React.FC = () => {
   useEffect(() => {
-    const imagesToPreload: string[] = [];
-    
-    navItems.forEach(item => {
-      if (item.menuItems) {
-        item.menuItems.forEach(item => {
-          if (item.img) {
-            imagesToPreload.push(item.img);
-          }
-        });
-      }
-    });
+    const imgUrls: string[] = navItems.flatMap(item => 
+      item.menuItems?.map(menu => menu.img).filter(Boolean) as string[] || []);
 
-    imagesToPreload.forEach(imageSrc => {
-      const img = new Image();
-      img.src = imageSrc;
-    });
-  }, []);
-  
+      preloadImages(imgUrls);
+  }, [])
   return null;
 };

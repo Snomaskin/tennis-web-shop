@@ -4,6 +4,7 @@ import { Product, products } from "../../assets/products.ts"
 import { useShop } from "./ShopContext.tsx";
 import { TextPage } from "../TextCard/TextCard";
 import { RenderProducts } from "./RenderProducts/RenderProducts.tsx";
+import { preloadImages } from "../../utils/preloadImages.ts";
 import "./Shop.css"
 
 
@@ -14,8 +15,14 @@ export const Shop = () => {
 
     useEffect(() => {
       if (category) {
-        setDisplayedProducts(products[category])
+        const productsInCategory = products[category];
+        const imgUrls = productsInCategory.map(item => item.imageUrl);
+
+        preloadImages(imgUrls)
+        .then(() => setDisplayedProducts(productsInCategory)) 
+        .catch((error) => console.log('Failed to preload menu images: ', error))
       };
+      
     }, [category, setDisplayedProducts]);
 
     return (
