@@ -107,7 +107,7 @@
     width: 180px;
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .sort-container.collapsed .title-row {
     align-items: center;
     justify-content: center;

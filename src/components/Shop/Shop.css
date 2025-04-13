@@ -23,7 +23,7 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .products-container {
     margin-left: 170px;
     width: calc(100% - 160px);

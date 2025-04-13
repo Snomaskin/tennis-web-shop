@@ -9,12 +9,12 @@ import "./SortProducts.css"
 
 export const SortProducts = ({ title }: { title?: string }) => {
   const { sortProducts, options } = useShop();
-  const [collapsed, setCollapsed] = useState<boolean>(window.innerWidth <= 450);
+  const [collapsed, setCollapsed] = useState<boolean>(window.innerWidth <= 500);
 
   // useEffect because otherwise 'collapsed' remains 'true' when window size increases.
   useEffect(() => {
     const handleWindowResize = () => {
-      if (window.innerWidth > 450) {
+      if (window.innerWidth > 500) {
         setCollapsed(false)
       } else {
         setCollapsed(true)
