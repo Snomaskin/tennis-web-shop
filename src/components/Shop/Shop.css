@@ -1,21 +1,22 @@
 .shop {
   display: flex;
-  min-width: 100vw;
-  align-items: flex-start;
+  width: 100%;
+  position: relative; 
 }
 
 .products-container {
+  margin-left: 230px; 
+  padding: 2rem;
+  width: calc(100% - 250px);
   display: grid;
   grid-template-columns: repeat(auto-fit, 210px);
   gap: 15px;
-  margin-left: 15px;
-  padding: 2rem;
-  width: 100%;
 }
   
 @media (max-width: 768px) {
   .products-container {
-    margin-left: 0px;
+    margin-left: 200px;
+    width: calc(100% - 200px);
     gap: 5px;
     row-gap: 15px;
     column-gap: 1px;
@@ -24,7 +25,9 @@
 
 @media (max-width: 450px) {
   .products-container {
+    margin-left: 170px;
+    width: calc(100% - 160px);
     grid-template-columns: repeat(auto-fit, 180px);
-    padding: 1rem 0.5rem;
+    padding: 1rem 1.5rem;
   }
 }
