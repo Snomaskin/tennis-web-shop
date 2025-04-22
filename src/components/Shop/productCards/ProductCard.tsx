@@ -19,7 +19,6 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   }
 
   const originalPrice = isPromo(product) ? product.originalPrice : null;
-  const promoLabel = isPromo(product) ? product.promoLabel : null;
 
   const handleAddToCart = () => {
     calculateCartPosition(productRef);

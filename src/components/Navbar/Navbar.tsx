@@ -49,7 +49,8 @@ export const Navbar = ({ navItems }: NavbarProps) => {
 
 const HoveredMenu = (
   { items, onItemClick }: 
-  { items: NavItem; onItemClick: () => void; }) => {
+  { items: NavItem; 
+    onItemClick: () => void; }) => {
     const [activeItem, setActiveItem] = useState<string | null>(null);
 
     const handleClick = (id: string) => {
