@@ -1,17 +1,23 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { Product, products } from "../../assets/products.ts"
+import { ReactNode, useEffect } from "react";
+import { Product, products, getPromotions, promoTexts } from "../../assets/products.ts"
 import { useShop } from "./ShopContext.tsx";
+import { useCart } from "./Cart/CartContext.tsx";
 import { TextPage } from "../TextCard/TextCard";
+import { ProductCard } from "./productCards/ProductCard.tsx";
 import { RenderProducts } from "./RenderProducts/RenderProducts.tsx";
 import { preloadImages } from "../../utils/preloadImages.ts";
+import { PopUp } from "../utilComponents/PopUp/PopUp.tsx";
 import "./Shop.css"
 
 
 export const Shop = () => {
     const { category } = useParams<{category?: string}>();
     const { displayedProducts, setDisplayedProducts } = useShop();
+    const { addToCart } = useCart()
     const title = category ? category.charAt(0).toUpperCase() + category.slice(1) : '';
+    const promotions = getPromotions().map(item => <ProductCard key={item.id} product={item} onAddToCart={addToCart} />);
+    const { promoHeader, promoText } = promoTexts
 
     useEffect(() => {
       if (category) {
@@ -22,16 +28,37 @@ export const Shop = () => {
         .then(() => setDisplayedProducts(productsInCategory)) 
         .catch((error) => console.log('Failed to preload menu images: ', error))
       };
-      
+
     }, [category, setDisplayedProducts]);
 
     return (
-      displayedProducts.length > 0 ? renderCategory(displayedProducts, title) : renderLandingShop()
+      displayedProducts.length > 0 
+      ? <RenderShop 
+          displayedProducts={displayedProducts}
+          title={title}
+          onAddToCart={addToCart}
+          promotions={promotions}
+          promoHeader={promoHeader}
+          promoText={promoText}
+        />
+      : renderLandingShop()
     );
-}
+};
 
-const renderCategory = (displayedProducts: Product[], title: string | undefined) => (
-  <RenderProducts products={displayedProducts} title={title} />
+interface RenderShopProps {
+  displayedProducts: Product[], 
+  title: string | undefined, 
+  onAddToCart: (product: Product) => void, 
+  promotions?: ReactNode[],
+  promoHeader?: string,
+  promoText?: string,
+};
+
+const RenderShop = ({ displayedProducts, title, onAddToCart, promotions, promoHeader, promoText }: RenderShopProps) => (
+  <>
+    {promotions && <PopUp promotions={promotions} header={promoHeader} text={promoText}/>}
+    <RenderProducts products={displayedProducts} title={title} onAddToCart={onAddToCart} />
+  </>
 );
 
 const renderLandingShop = () => (

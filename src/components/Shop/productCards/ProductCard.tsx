@@ -1,11 +1,11 @@
-import { Product } from "../../../assets/products";
+import { Product, PromoProduct } from "../../../assets/products";
 import "./ProductCard.css"
 import { useState, useRef, useEffect } from 'react';
 import classNames from "classnames";
 
 
 interface ProductCardProps {
-    product: Product,
+    product: Product | PromoProduct,
     onAddToCart: (item: Product) => void;
 };
 
@@ -14,23 +14,15 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const productRef = useRef<HTMLDivElement>(null);
 
-  const calculateCartPosition = () => {
-    const cartElement = document.querySelector('.cart-icon');
-    if (!productRef.current || !cartElement) return;
-  
-    const productRect = productRef.current.getBoundingClientRect();
-    const cartRect = cartElement.getBoundingClientRect();
-  
-    const moveX = cartRect.left - productRect.left;
-    // Since the default endpoint is a lot lower than the cart nav for some reason we need to adjust it.
-    const moveY = (cartRect.top - productRect.top) - 140; 
-  
-    productRef.current.style.setProperty('--move-x', `${moveX}px`);
-    productRef.current.style.setProperty('--move-y', `${moveY}px`);
-  };
+  const isPromo = (product: Product): product is PromoProduct => {
+    return 'originalPrice' in product
+  }
+
+  const originalPrice = isPromo(product) ? product.originalPrice : null;
+  const promoLabel = isPromo(product) ? product.promoLabel : null;
 
   const handleAddToCart = () => {
-    calculateCartPosition();
+    calculateCartPosition(productRef);
     setIsAnimating(true);
     
     setTimeout(() => {
@@ -59,16 +51,22 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
         ref={productRef}
         className={classNames('product-card', {
           'animate-to-cart': isAnimating
-          })
-        }
+        })}
       >
         <div className="image-wrapper">
           <img className="product-image" src={imageUrl} alt={name} />
-        </div>
-        
+        </div>     
         <h3 className="product-name">{name}</h3>
-        <p className="product-price">${price}</p>
-
+        <p className="product-price">
+          {originalPrice ? (
+            <>
+              <span className="original-price">${originalPrice}</span>{' '}
+              <span className="discount-price">${price}</span>
+            </>
+          ) : (
+            <span>${price}</span>
+          )}
+        </p>
         <button 
           onClick={handleAddToCart} 
           className="add-to-cart-btn"
@@ -79,4 +77,19 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       </article>
     </div>
   );
+};
+
+const calculateCartPosition = (productRef: React.RefObject<HTMLDivElement>) => {
+  const cartElement = document.querySelector('.cart-icon');
+  if (!productRef.current || !cartElement) return;
+
+  const productRect = productRef.current.getBoundingClientRect();
+  const cartRect = cartElement.getBoundingClientRect();
+
+  const moveX = cartRect.left - productRect.left;
+  // Since the default endpoint is a lot lower than the cart nav for some reason we need to adjust it.
+  const moveY = (cartRect.top - productRect.top) - 140; 
+
+  productRef.current.style.setProperty('--move-x', `${moveX}px`);
+  productRef.current.style.setProperty('--move-y', `${moveY}px`);
 };

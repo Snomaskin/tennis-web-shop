@@ -45,7 +45,6 @@
   margin: 12px 0;
   text-align: center;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
 }
@@ -54,7 +53,19 @@
   font-size: 16px;
   color: #333;
   margin: 0;
-  padding: 0 8px;
+  padding: 0 12px;
+  align-items: center;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 0.5rem;
+}
+
+.discount-price {
+  color: #e53935;
+  font-weight: bold;
 }
 
 .add-to-cart-btn {
@@ -98,6 +109,7 @@
 @media (max-width: 768px) {
   .product-card {
     width: 90%;
+    max-height: 200px;
   }
 
   .image-wrapper {

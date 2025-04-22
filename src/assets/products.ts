@@ -1,12 +1,51 @@
 interface Product {
-    id: string;
-    name: string;
-    price: number;
-    imageUrl: string;
+  id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+};
+
+interface PromoProduct extends Product {
+  originalPrice: number;
+  promoLabel?: string;
 }
 
 interface ProductCategory {
-    [category: string]: Product[]
+  [category: string]: Product[]
+};
+
+type Promotion =
+  | { id: string; promoPrice: number; discount?: never; promoLabel?: string }
+  | { id: string; discount: number; promoPrice?: never; promoLabel?: string };
+
+const getPromotions = (): PromoProduct[] => {
+  const allProducts = Object.values(products).flat();
+  return promotions.map(promo => {
+    const product = allProducts.find(p => p.id === promo.id);
+    if (!product) return null;
+
+    const price =  
+      promo.promoPrice 
+      ?? ( promo.discount ? Math.round(product.price * (1 - promo.discount) * 100) / 100 
+      : product.price);
+
+    return {
+      ...product,
+      price: price,
+      originalPrice: product.price,
+      promoLabel: promo.promoLabel ?? '',
+    };
+  }).filter(Boolean) as PromoProduct[];
+}
+
+const promotions: Promotion[] = [
+  {id: 'wilsonBlade', discount: 0.2},
+  {id: 'babolatPureAero', discount: 0.3},
+  {id: 'headSpeed', discount: 0.1},
+  {id: 'yonexEzone', discount: 0.1}
+];
+const promoTexts: { promoHeader?: string, promoText?: string } = {
+  promoHeader: "Special deals selected for you!"
 }
 
 const products: ProductCategory = {
@@ -254,5 +293,5 @@ const products: ProductCategory = {
     ]
 }
 
-export type { Product, ProductCategory }
-export { products }
+export type { Product, PromoProduct, ProductCategory }
+export { products, promotions, getPromotions, promoTexts }
