@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { ReactNode, useEffect } from "react";
-import { Product, products, getPromotions, promoTexts } from "../../assets/products.ts"
+import { Product, products, promotions, promoTexts } from "../../assets/products.ts"
+import { applyPromosToProducts, getPromosFromAppliedProducts } from "../../utils/promoUtils.ts";
 import { useShop } from "./ShopContext.tsx";
 import { useCart } from "./Cart/CartContext.tsx";
 import { TextPage } from "../TextCard/TextCard";
@@ -16,14 +17,13 @@ export const Shop = () => {
     const { displayedProducts, setDisplayedProducts } = useShop();
     const { addToCart } = useCart()
     const title = category ? category.charAt(0).toUpperCase() + category.slice(1) : '';
-    const promotions = getPromotions().map(item => <ProductCard key={item.id} product={item} onAddToCart={addToCart} />);
     const { promoHeader, promoText } = promoTexts
 
     useEffect(() => {
       if (category) {
-        const productsInCategory = products[category];
+        const productsInCategory = applyPromosToProducts(products[category], promotions);
         const imgUrls = productsInCategory.map(item => item.imageUrl);
-
+        
         preloadImages(imgUrls)
         .then(() => setDisplayedProducts(productsInCategory)) 
         .catch((error) => console.log('Failed to preload menu images: ', error))
@@ -31,13 +31,17 @@ export const Shop = () => {
 
     }, [category, setDisplayedProducts]);
 
+
+    const promoProductNodes = getPromosFromAppliedProducts(displayedProducts, promotions)
+      .map(item => <ProductCard key={item.id} product={item} onAddToCart={addToCart} />);
+
     return (
       displayedProducts.length > 0 
       ? <RenderShop 
           displayedProducts={displayedProducts}
           title={title}
           onAddToCart={addToCart}
-          promotions={promotions}
+          promotions={promoProductNodes}
           promoHeader={promoHeader}
           promoText={promoText}
         />
@@ -56,7 +60,7 @@ interface RenderShopProps {
 
 const RenderShop = ({ displayedProducts, title, onAddToCart, promotions, promoHeader, promoText }: RenderShopProps) => (
   <>
-    {promotions && <PopUp promotions={promotions} header={promoHeader} text={promoText}/>}
+    {promotions?.length ? <PopUp promotions={promotions} header={promoHeader} text={promoText}/> : null}
     <RenderProducts products={displayedProducts} title={title} onAddToCart={onAddToCart} />
   </>
 );

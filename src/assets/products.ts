@@ -2,6 +2,7 @@ interface Product {
   id: string;
   name: string;
   price: number;
+  promoPrice?: boolean;
   imageUrl: string;
 };
 
@@ -18,32 +19,21 @@ type Promotion =
   | { id: string; promoPrice: number; discount?: never; promoLabel?: string }
   | { id: string; discount: number; promoPrice?: never; promoLabel?: string };
 
-const getPromotions = (): PromoProduct[] => {
-  const allProducts = Object.values(products).flat();
-  return promotions.map(promo => {
-    const product = allProducts.find(p => p.id === promo.id);
-    if (!product) return null;
-
-    const price =  
-      promo.promoPrice 
-      ?? ( promo.discount ? Math.round(product.price * (1 - promo.discount) * 100) / 100 
-      : product.price);
-
-    return {
-      ...product,
-      price: price,
-      originalPrice: product.price,
-      promoLabel: promo.promoLabel ?? '',
-    };
-  }).filter(Boolean) as PromoProduct[];
-}
-
 const promotions: Promotion[] = [
   {id: 'wilsonBlade', discount: 0.2},
   {id: 'babolatPureAero', discount: 0.3},
   {id: 'headSpeed', discount: 0.1},
-  {id: 'yonexEzone', discount: 0.1}
+  {id: 'yonexEzone', discount: 0.1},
+  {id: 'wilsonUSOpenBall', discount: 0.1},
+  {id: 'princeTourBall', discount: 0.15},
+  {id: 'babolatGoldBall', discount: 0.15},
+  {id: 'dunlopATPBall', discount: 0.1},
+  {id: 'lacosteUltraDry', discount: 0.2},
+  {id: 'nikeDri-Fit', discount: 0.25},
+  {id: 'kSwissHypercourt', discount: 0.15},
+  {id: 'wilsonTeamCap', discount: 0.3},
 ];
+
 const promoTexts: { promoHeader?: string, promoText?: string } = {
   promoHeader: "Special deals selected for you!"
 }
@@ -293,5 +283,5 @@ const products: ProductCategory = {
     ]
 }
 
-export type { Product, PromoProduct, ProductCategory }
-export { products, promotions, getPromotions, promoTexts }
+export type { Product, PromoProduct, ProductCategory, Promotion }
+export { products, promotions, promoTexts }
