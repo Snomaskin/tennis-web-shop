@@ -12,30 +12,31 @@ interface PopUpProps {
 
 export const PopUp = ({ header, text, promotions }: PopUpProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isFading, setIsFading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsOpen(true);
+    setTimeout(() => {
+      setIsVisible(true);
+    }, 50)
   }, []);
 
   const closePopUp = () => {
-    setIsFading(true);
-    
+    setIsVisible(false);
     setTimeout(() => {
       setIsOpen(false);
-      setIsFading(false);
     }, 400);
-    };
+  };
 
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={closePopUp}
       className={classNames('popup-content', {
-        'fading': isFading
+        'visible': isVisible,
       })}
       overlayClassName={classNames('popup-overlay', {
-        'fading': isFading
+        'visible': isVisible
       })}
       ariaHideApp={false}
     >
