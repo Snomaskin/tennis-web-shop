@@ -7,7 +7,7 @@ import apparelImg from "../../../assets/apparel.png"
 export type NavItem = {
     menuName: string;
     menuId: string;
-    menuItems?: { label:string, id:string, path:string, img?: string }[];
+    menuItems?: { label?:string, id:string, path:string, img?: string }[];
 };
 
 export const navItems: NavItem[] = [
@@ -15,7 +15,7 @@ export const navItems: NavItem[] = [
         menuName: 'Apps',
         menuId: 'apps',
         menuItems: [
-            { label: 'Match Predictor', id: 'matchPredictor', path: '/apps', img: appImg},
+            { id: 'matchPredictor', path: '/apps', img: appImg},
         ]
     },
     {

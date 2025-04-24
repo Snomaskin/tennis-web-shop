@@ -72,7 +72,8 @@ const HoveredMenu = (
             <img 
               className={items.menuId === "shop" ? "shop-icon" : "app-icon"} 
               src={item.img} 
-              />
+            />
+            {item.label ? <label htmlFor={item.id}>{item.label}</label> : null}
           </Link>
         ))}
       </div>
