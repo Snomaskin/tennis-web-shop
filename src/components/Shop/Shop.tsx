@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { ReactNode, useEffect } from "react";
 import { Product, products, specialPromos, promotions, promoTexts } from "../../assets/products.ts"
-import { getPromosFromAll, applyPromosToProducts, getPromosFromAppliedProducts } from "../../utils/promoUtils.ts";
+import { getPromosFromAll, applyPromosToProducts } from "../../utils/promoUtils.ts";
 import { useShop } from "./ShopContext.tsx";
 import { useCart } from "./Cart/CartContext.tsx";
 import { TextPage } from "../TextCard/TextCard";
