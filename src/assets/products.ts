@@ -19,8 +19,15 @@ type Promotion =
   | { id: string; promoPrice: number; discount?: never; promoLabel?: string }
   | { id: string; discount: number; promoPrice?: never; promoLabel?: string };
 
-const promotions: Promotion[] = [
+const specialPromos: Promotion[] = [
+  {id: 'yonexVcore', discount: 0.4},
+  {id: 'wilsonPro', discount: 0.3},
+  {id: 'dunlopFx500', discount: 0.4},
   {id: 'wilsonBlade', discount: 0.2},
+]
+
+const promotions: Promotion[] = [
+  {id: 'headRacquet', discount: 0.4},
   {id: 'babolatPureAero', discount: 0.3},
   {id: 'headSpeed', discount: 0.1},
   {id: 'yonexEzone', discount: 0.1},
@@ -35,7 +42,7 @@ const promotions: Promotion[] = [
 ];
 
 const promoTexts: { promoHeader?: string, promoText?: string } = {
-  promoHeader: "Special deals selected for you!"
+  promoHeader: "Hot deals selected for you!"
 }
 
 const products: ProductCategory = {
@@ -147,19 +154,19 @@ const products: ProductCategory = {
     racquets: [
         {
             id: 'wilsonRacquet',
-            name: 'Wilson Tennis Racquet',
+            name: 'Wilson Racquet',
             price: 250,
             imageUrl: 'https://www.wilson.com/en-us/media/catalog/product/article_images/WR172711U_/WR172711U__ef49c0541dc830c48c4702248438b581.png'
         },
         {
             id: 'princeRacquet',
-            name: 'Prince Tennis Racquet',
+            name: 'Prince Racquet',
             price: 200,
             imageUrl: 'https://images.squarespace-cdn.com/content/v1/56e9b38c2b8dde820241b62d/1603739008032-X8E6IKC5K1UMYT6764AW/PL850_010w.png'
         },
         {
             id: 'headRacquet',
-            name: 'Head Tennis Racquet',
+            name: 'Head Racquet',
             price: 240,
             imageUrl: 'https://cdn-mdb.head.com/CDN3/D/232045/1/1200x1200/instinct-pwr-110-2025.webp'
         },
@@ -284,4 +291,4 @@ const products: ProductCategory = {
 }
 
 export type { Product, PromoProduct, ProductCategory, Promotion }
-export { products, promotions, promoTexts }
+export { products,specialPromos, promotions, promoTexts }

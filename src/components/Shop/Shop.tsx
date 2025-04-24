@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { ReactNode, useEffect } from "react";
-import { Product, products, promotions, promoTexts } from "../../assets/products.ts"
-import { applyPromosToProducts, getPromosFromAppliedProducts } from "../../utils/promoUtils.ts";
+import { Product, products, specialPromos, promotions, promoTexts } from "../../assets/products.ts"
+import { getPromosFromAll, applyPromosToProducts, getPromosFromAppliedProducts } from "../../utils/promoUtils.ts";
 import { useShop } from "./ShopContext.tsx";
 import { useCart } from "./Cart/CartContext.tsx";
 import { TextPage } from "../TextCard/TextCard";
@@ -32,7 +32,7 @@ export const Shop = () => {
     }, [category, setDisplayedProducts]);
 
 
-    const promoProductNodes = getPromosFromAppliedProducts(displayedProducts, promotions)
+    const promoProductNodes = getPromosFromAll(products, specialPromos)
       .map(item => <ProductCard key={item.id} product={item} onAddToCart={addToCart} />);
 
     return (

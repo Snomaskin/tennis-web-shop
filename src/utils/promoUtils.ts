@@ -1,5 +1,28 @@
-import type { Product, Promotion, PromoProduct } from "../assets/products";
+import type { Product, Promotion, PromoProduct, ProductCategory } from "../assets/products";
 
+
+const getPromosFromAll = (
+  products: ProductCategory, 
+  promotions: Promotion[]
+): PromoProduct[] => {
+  const allProducts = Object.values(products).flat();
+  return promotions.map(promo => {
+    const product = allProducts.find(p => p.id === promo.id);
+    if (!product) return null;
+
+    const price =  
+      promo.promoPrice 
+      ?? ( promo.discount ? Math.round(product.price * (1 - promo.discount) * 100) / 100 
+      : product.price);
+
+    return {
+      ...product,
+      price: price,
+      originalPrice: product.price,
+      promoLabel: promo.promoLabel ?? '',
+    };
+  }).filter(Boolean) as PromoProduct[];
+}
 
 const applyPromosToProducts = (
   products: Product[], 
@@ -40,4 +63,4 @@ const getPromosFromAppliedProducts = (
     .map(p => p as PromoProduct);
 };
 
-export { applyPromosToProducts, getPromosFromAppliedProducts };
+export { getPromosFromAll, applyPromosToProducts, getPromosFromAppliedProducts };
