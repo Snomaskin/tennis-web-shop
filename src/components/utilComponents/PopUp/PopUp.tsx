@@ -1,6 +1,8 @@
 import Modal from 'react-modal';
 import { ReactNode, useState, useEffect } from "react";
+import classNames from 'classnames';
 import "./PopUp.css";
+
 
 interface PopUpProps {
   header?: string;
@@ -10,19 +12,31 @@ interface PopUpProps {
 
 export const PopUp = ({ header, text, promotions }: PopUpProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
     setIsOpen(true);
   }, []);
 
-  const closePopUp = () => setIsOpen(false);
+  const closePopUp = () => {
+    setIsFading(true);
+    
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsFading(false);
+    }, 400);
+    };
 
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={closePopUp}
-      className='popup-content'
-      overlayClassName='popup-overlay'
+      className={classNames('popup-content', {
+        'fading': isFading
+      })}
+      overlayClassName={classNames('popup-overlay', {
+        'fading': isFading
+      })}
       ariaHideApp={false}
     >
       <div className='popup-header'>
