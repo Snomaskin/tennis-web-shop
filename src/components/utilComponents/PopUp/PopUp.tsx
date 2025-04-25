@@ -3,7 +3,6 @@ import { ReactNode, useState, useEffect } from "react";
 import classNames from 'classnames';
 import "./PopUp.css";
 
-
 interface PopUpProps {
   header?: string;
   text?: string;
@@ -13,12 +12,15 @@ interface PopUpProps {
 export const PopUp = ({ header, text, promotions }: PopUpProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const smallScreen = window.innerWidth <= 700;
+  if (smallScreen) return null;
+
 
   useEffect(() => {
     setIsOpen(true);
     setTimeout(() => {
       setIsVisible(true);
-    }, 50)
+    }, 50);
   }, []);
 
   const closePopUp = () => {
@@ -34,6 +36,7 @@ export const PopUp = ({ header, text, promotions }: PopUpProps) => {
       onRequestClose={closePopUp}
       className={classNames('popup-content', {
         'visible': isVisible,
+        'small-screen': smallScreen
       })}
       overlayClassName={classNames('popup-overlay', {
         'visible': isVisible
@@ -45,7 +48,14 @@ export const PopUp = ({ header, text, promotions }: PopUpProps) => {
         <span className='popup-close' onClick={() => closePopUp()}>X</span>
       </div>
       {text && <p>{text}</p>}
-      {promotions && <div className='promotion-products'>{promotions}</div>}
+      {promotions && (
+        
+        <div className={classNames('promotion-products', {
+          'small-screen': smallScreen
+        })}>
+          {promotions}
+        </div>
+      )}
     </Modal>
-  )
+  );
 };

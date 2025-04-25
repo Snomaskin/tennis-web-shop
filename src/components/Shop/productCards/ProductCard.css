@@ -110,6 +110,7 @@
   .product-card {
     width: 90%;
     max-height: 200px;
+    max-width: 180px;
   }
 
   .image-wrapper {
@@ -132,7 +133,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .card-wrapper {
     padding: 2px 0;
     max-width: 180px;
