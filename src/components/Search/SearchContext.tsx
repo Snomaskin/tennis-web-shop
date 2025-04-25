@@ -24,11 +24,8 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
         const searchTermLowerCase = searchTerm.toLowerCase();
         const results = Object.values(products)
           .flat()
-          .filter(product => 
-              product.name.toLowerCase().includes(searchTermLowerCase)
-          )
-          .slice(0, 5);
-        
+          .filter(product => product.name.toLowerCase().includes(searchTermLowerCase));
+
         setSearchResults(results);
     };
 
