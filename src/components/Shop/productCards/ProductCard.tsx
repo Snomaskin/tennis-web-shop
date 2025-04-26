@@ -1,4 +1,4 @@
-import { Product, PromoProduct } from "../../../assets/products";
+import { Product, PromoProduct } from "../../../data/products";
 import "./ProductCard.css"
 import { useState, useRef, useEffect } from 'react';
 import classNames from "classnames";

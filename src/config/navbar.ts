@@ -1,7 +1,7 @@
-import tennisBallImg from "../../../assets/tennis-ball.png"
-import tennisRacketImg from "../../../assets/tennis-racket.png"
-import appImg from "../../../assets/appImg.png"
-import apparelImg from "../../../assets/apparel.png"
+import tennisBallImg from "../assets/tennis-ball.png"
+import tennisRacketImg from "../assets/tennis-racket.png"
+import appImg from "../assets/appImg.png"
+import apparelImg from "../assets/apparel.png"
 
 
 export type NavItem = {

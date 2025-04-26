@@ -1,4 +1,4 @@
-import type { Product, Promotion, PromoProduct, ProductCategory } from "../assets/products";
+import type { Product, Promotion, PromoProduct, ProductCategory } from "../data/products";
 
 
 const getPromosFromAll = (
@@ -22,7 +22,7 @@ const getPromosFromAll = (
       promoLabel: promo.promoLabel ?? '',
     };
   }).filter(Boolean) as PromoProduct[];
-}
+};
 
 const applyPromosToProducts = (
   products: Product[], 

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Product, products } from '../../assets/products';
+import { Product, products } from '../../data/products';
 
 
 interface SearchContextType {

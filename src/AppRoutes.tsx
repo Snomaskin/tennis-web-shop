@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Shop } from "./components/Shop/Shop.tsx"
 import { TextPage } from "./components/TextCard/TextCard.tsx";
-import { useText } from "./assets/texts.tsx";
+import { useText } from "./data/texts.ts";
 import { MatchPredictor } from "./components/apps/MatchPredictor.tsx";
 import { Checkout } from "./components/Shop/Checkout/Checkout.tsx";
 

@@ -48,8 +48,7 @@ export const PopUp = ({ header, text, promotions }: PopUpProps) => {
         <span className='popup-close' onClick={() => closePopUp()}>X</span>
       </div>
       {text && <p>{text}</p>}
-      {promotions && (
-        
+      {promotions && (   
         <div className={classNames('promotion-products', {
           'small-screen': smallScreen
         })}>

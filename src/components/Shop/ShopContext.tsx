@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Product } from "../../assets/products.ts"
+import { Product } from "../../data/products.ts"
 import customSort from "../../utils/sortArray.ts";
 
 

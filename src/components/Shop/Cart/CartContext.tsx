@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Product } from "../../../assets/products";
+import type { Product } from "../../../data/products";
 
 
 export interface CartItemType extends Product {

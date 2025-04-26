@@ -1,6 +1,6 @@
 import { AppRoutes } from './AppRoutes';
 import { Navbar } from './components/Navbar/Navbar';
-import { navItems } from './components/Navbar/config/navbar';
+import { navItems } from './config/navbar';
 import { SearchResults } from './components/Search/SearchResults';
 import { useSearch } from './components/Search/SearchContext';
 

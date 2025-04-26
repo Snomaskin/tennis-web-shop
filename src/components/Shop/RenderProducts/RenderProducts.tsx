@@ -1,4 +1,4 @@
-import type { Product } from "../../../assets/products";
+import type { Product } from "../../../data/products";
 import { ProductCard } from "../productCards/ProductCard";
 import { SortProducts } from "../SortProducts/SortProducts";
 import { TextPage } from "../../TextCard/TextCard";

@@ -4,7 +4,7 @@ import { useShop } from "../Shop/ShopContext";
 import { useCart } from "../Shop/Cart/CartContext";
 import { RenderProducts } from "../Shop/RenderProducts/RenderProducts";
 import { preloadImages } from "../../utils/preloadImages";
-import { promotions } from "../../assets/products";
+import { promotions } from "../../data/products";
 import { applyPromosToProducts } from "../../utils/promoUtils";
 import "../Shop/Shop.css";
 
