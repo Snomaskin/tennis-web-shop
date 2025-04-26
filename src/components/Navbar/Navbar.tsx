@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavItem } from "../../config/navbar";
+import { NavItem } from "../../config/site-navigation";
 import { Link } from "react-router-dom";
 import { Cart } from "../Shop/Cart/Cart";
 import { useSearch } from "../Search/SearchContext";

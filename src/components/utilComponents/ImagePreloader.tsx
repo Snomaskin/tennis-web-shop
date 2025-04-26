@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { preloadImages } from '../../utils/preloadImages';
-import { navItems } from '../../config/navbar';
+import { navItems } from '../../config/site-navigation';
 
 
 export const ImagePreloader: React.FC = () => {
