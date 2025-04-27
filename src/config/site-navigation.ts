@@ -9,8 +9,13 @@ export type NavItem = {
     menuId: string;
     menuItems?: { label?:string, id:string, path:string, img?: string }[];
 };
+const shopItems = [
+  { label: 'Racquets', id: 'racquets', path: '/shop', img: tennisRacketImg },
+  { label: 'Balls', id: 'balls', path: '/shop', img: tennisBallImg },
+  { label: 'Apparel', id: 'apparel', path: '/shop', img: apparelImg }
+];
 
-export const navItems: NavItem[] = [
+const navItems: NavItem[] = [
     {
         menuName: 'Apps',
         menuId: 'apps',
@@ -21,14 +26,12 @@ export const navItems: NavItem[] = [
     {
         menuName: 'Shop',
         menuId: 'shop',
-        menuItems: [
-            { label: 'Racquets', id: 'racquets', path: '/shop', img: tennisRacketImg },
-            { label: 'Balls', id: 'balls', path: '/shop', img: tennisBallImg },
-            { label: 'Apparel', id: 'apparel', path: '/shop', img: apparelImg }
-        ],
+        menuItems: shopItems
     },
     {    
         menuName: 'About',
         menuId: 'about',
     },
 ];
+
+export { shopItems, navItems }

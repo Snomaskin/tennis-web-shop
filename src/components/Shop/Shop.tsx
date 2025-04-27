@@ -4,11 +4,11 @@ import { Product, products, specialPromos, promotions, promoTexts } from "../../
 import { getPromosFromAll, applyPromosToProducts } from "../../utils/promoUtils.ts";
 import { useShop } from "./ShopContext.tsx";
 import { useCart } from "./Cart/CartContext.tsx";
-import { TextPage } from "../TextCard/TextCard";
 import { ProductCard } from "./productCards/ProductCard.tsx";
 import { RenderProducts } from "./RenderProducts/RenderProducts.tsx";
 import { preloadImages } from "../../utils/preloadImages.ts";
 import { PopUp } from "../utilComponents/PopUp/PopUp.tsx";
+import { ShopLandingPage } from "./ShopLandingPage/ShopLandingPage.tsx";
 import "./Shop.css"
 
 
@@ -28,7 +28,9 @@ export const Shop = () => {
         .then(() => setDisplayedProducts(productsInCategory)) 
         .catch((error) => console.log('Failed to preload menu images: ', error))
       };
-
+      return () => {
+        setDisplayedProducts([]);
+      };
     }, [category, setDisplayedProducts]);
 
 
@@ -45,7 +47,7 @@ export const Shop = () => {
           promoHeader={promoHeader}
           promoText={promoText}
         />
-      : renderLandingShop()
+      : <ShopLandingPage />
     );
 };
 
@@ -63,12 +65,4 @@ const RenderShop = ({ displayedProducts, title, onAddToCart, promotions, promoHe
     {promotions?.length ? <PopUp promotions={promotions} header={promoHeader} text={promoText}/> : null}
     <RenderProducts products={displayedProducts} title={title} onAddToCart={onAddToCart} />
   </>
-);
-
-const renderLandingShop = () => (
-    <div className="shop">
-        <TextPage 
-        outerText={{title:'Welcome to the shop.', p1:`- Select a product category from the 'Shop' menu or use search to find products.`}} 
-        innerText={{title: 'News', p1: '- Sort function is now live!'}} />
-    </div>
 );

@@ -1,0 +1,38 @@
+.shop-landing-container {
+margin-top: 20vh;
+}
+
+.shop-landing-container h1 {
+  text-align: center;
+}
+.shop-routes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+.shop-route {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 100px;
+  aspect-ratio: 1/1;
+  max-width: 250px;
+  background-color: var(--tennis-white);
+  border-radius: 1rem;
+  transition: transform ease 0.2s;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.shop-route:hover {
+  background-color: rgba(255, 255, 0, 0.305);
+  transform: translateY(-5px);
+}
+
+.shop-route-img {
+  width: 40%;
+  height: auto;
+  object-fit:contain;
+}
