@@ -22,14 +22,14 @@ const aboutText: TextPageType = {
 
 const homeText: TextPageType = {
     outerText: {
-        title: 'Welcome to my website.',
-        p1: `Make predictions with the prediction app and try out the shop.`,
-        p2: `More exciting stuff is in development, so stay tuned.`,
+        title: 'Welcome.',
+        p1: `- Make predictions with the prediction app `,
+        p2: `- Try out the shop features`,
     },
     innerText: {
-        title: 'News',
+        title: 'News:',
         p1: `Checkout function is now live!`,
-        p2: `Add some items from the shop and open the cart in the top right corner to continue to checkout.`,
+        p2: `Add some items to the cart and continue to checkout through the cart icon in the top right corner.`,
         p3: `Please don't enter sensitive information. It's just for testing.`
     }
 }

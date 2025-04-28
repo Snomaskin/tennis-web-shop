@@ -1,0 +1,36 @@
+.main-landing-container {
+  display: flex;
+}
+
+.main-landing-container .shop-routes {
+  flex-direction: column;
+  min-width: 150px;
+  max-width: 207px;
+  margin-top: 0;
+  
+}
+
+.main-landing-container .shop-landing-container {
+  margin-top: 2rem;
+}
+
+.main-landing-container .text-page-wrapper {
+  max-width: 500px;
+  padding: 1rem;
+  border-right: 1px solid #eee
+
+}
+
+.main-landing-app-container {
+  display: flex;
+  flex: 1 1 400px;
+  overflow: hidden;
+  padding: 2rem 1rem;
+  border-left: 1px solid #eee
+}
+
+.main-landing-app-container iframe {
+  border-radius: 1rem; 
+  max-height: 650px;
+
+}
