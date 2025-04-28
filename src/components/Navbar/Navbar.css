@@ -12,7 +12,7 @@
     padding-left: 14rem;
     height: 60px;
     background-image: linear-gradient(to right, 
-    rgb(239, 239, 70) 0, 
+    rgba(239, 239, 70, 0.619) 0, 
     var(--tennis-white) 20rem);
 }
 
@@ -183,7 +183,7 @@
   .navbar {
     padding-left: 0.5rem;
     background-image: linear-gradient(to right, 
-    rgb(239, 239, 70) 0rem, 
+    rgba(239, 239, 70, 0.604) 0rem, 
     var(--tennis-white) 16rem);
   }
   
