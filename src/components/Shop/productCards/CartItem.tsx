@@ -1,4 +1,5 @@
 import type { CartItemType } from "../Cart/CartContext";
+import trashIcon from "../../../assets/trash.png"
 import "./CartItem.css"
 
 
@@ -18,7 +19,7 @@ export const CartItem = ({ cartItem, removeFromCart }: CartItemProps) => {
         <p className="price">${price}</p>
         <span className="quantity">{quantity}x</span>
         <button onClick={() =>removeFromCart(id)} className="rm-item-btn">
-          Remove
+          <img className="cart-trash-icon" src={trashIcon} />
         </button>
       </article>
     );

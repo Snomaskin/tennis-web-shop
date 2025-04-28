@@ -19,9 +19,7 @@
     padding: 20px 50px;
 }
 
-.checkout-item {
-    width: 20rem;
-}
+
 .checkout-footer {
     display: flex;
     justify-content: flex-end; 
