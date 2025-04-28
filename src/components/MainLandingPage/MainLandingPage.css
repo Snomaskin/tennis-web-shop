@@ -17,7 +17,7 @@
 .main-landing-container .text-page-wrapper {
   max-width: 500px;
   padding: 1rem;
-  border-right: 1px solid #eee
+  border-right: 1px solid #eee;
 
 }
 
@@ -26,7 +26,8 @@
   flex: 1 1 400px;
   overflow: hidden;
   padding: 2rem 1rem;
-  border-left: 1px solid #eee
+  border-left: 1px solid #eee;
+  height: calc(100vh - 130px)
 }
 
 .main-landing-app-container iframe {

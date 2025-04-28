@@ -22,9 +22,8 @@ body {
 
 .main {
   background-color: var(--tennis-gray);
-  min-height: 100vh;
+  height: calc(100vh - 60px);
   min-width: 100vw;
-  padding-top: 60px;
+  margin-top: 60px;
   overflow-x: hidden;
-  overflow-y: hidden;
 }
