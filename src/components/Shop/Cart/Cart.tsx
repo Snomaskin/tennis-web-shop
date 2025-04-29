@@ -1,91 +1,94 @@
 import { useCart } from "./CartContext";
 import { CartItem } from "../productCards/CartItem";
-import cartIcon from "../../../assets/cart.png"
-import "./Cart.css"
+import cartIcon from "../../../assets/cart.png";
+import trashIcon from "../../../assets/trash.png";
 import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
+import { preloadImages } from "../../../utils/preloadImages";
+import "./Cart.css";
 
 
 export const Cart = () => {
-    const { cart, removeFromCart, clearCart, checkoutCart } = useCart();
-    const totalCart = cart.length > 0 ? cart.reduce((prev, item) => prev + item.quantity, 0) : 0;
-    const [isSelected, setIsSelected] = useState<boolean>(false);
-    const [isClicked, setIsClicked] = useState<boolean>(false);
-    const cartRef = useRef<HTMLDivElement>(null);
+  const { cart, removeFromCart, clearCart, checkoutCart } = useCart();
+  const totalCart = cart.length > 0 ? cart.reduce((prev, item) => prev + item.quantity, 0) : 0;
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const cartRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
-                setIsSelected(false);
-                setIsClicked(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
-    const handleMouseLeave = () => {
-        !isClicked && setIsSelected(false);
-    }
-
-    const handleClick = () => {
-        if (!isClicked && cart.length > 0) {
-            setIsClicked(true);
-            setIsSelected(true);
-        } else { 
+  useEffect(() => {
+    preloadImages(trashIcon).catch(error => console.log('Failed to preload: trashIcon', error));
+    const handleClickOutside = (event: MouseEvent) => {
+        if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
+            setIsSelected(false);
             setIsClicked(false);
         }
-    }
+    };
 
-    return (
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleMouseLeave = () => {
+      !isClicked && setIsSelected(false);
+  }
+
+  const handleClick = () => {
+      if (!isClicked && cart.length > 0) {
+          setIsClicked(true);
+          setIsSelected(true);
+      } else { 
+          setIsClicked(false);
+      }
+  }
+
+  return (
+      <div 
+        ref={cartRef}
+        className={classNames('cart-nav', {
+          'is-clicked': isClicked,
+          'is-hovered': isSelected && !isClicked
+          })
+        }
+        onMouseEnter={() => setIsSelected(true)} 
+        onMouseLeave={handleMouseLeave}
+      >
         <div 
-            ref={cartRef}
-            className={classNames('cart-nav', {
-                'is-clicked': isClicked,
-                'is-hovered': isSelected && !isClicked
-                })
-            }
-            onMouseEnter={() => setIsSelected(true)} 
-            onMouseLeave={handleMouseLeave}
+          className="cart-clicker"
+          onClick={handleClick}
         >
-            <div 
-                className="cart-clicker"
-                onClick={handleClick}
-            >
-                <img className="cart-icon" src={cartIcon} alt="Cart" />
-                <div className="cart-counter">{totalCart}</div>
-            </div>
-            
-            {cart.length > 0 && isSelected === true &&
-                <div className="cart">
-                    <ul className="cart-items">
-                        {cart.map((item) => (
-                            <li key={item.id}>
-                                <CartItem 
-                                    cartItem={item}
-                                    removeFromCart={removeFromCart}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                    <CartBtns clearCart={clearCart} checkoutCart={checkoutCart} />
-                </div>
-            }
+          <img className="cart-icon" src={cartIcon} alt="Cart" />
+          <div className="cart-counter">{totalCart}</div>
         </div>
-    );
+        
+        {cart.length > 0 && isSelected === true &&
+          <div className="cart">
+              <ul className="cart-items">
+                {cart.map((item) => (
+                  <li key={item.id}>
+                    <CartItem 
+                      cartItem={item}
+                      removeFromCart={removeFromCart}
+                    />
+                  </li>
+                ))}
+              </ul>
+              <CartBtns clearCart={clearCart} checkoutCart={checkoutCart} />
+          </div>
+        }
+    </div>
+  );
 };
 
 const CartBtns = ({ clearCart, checkoutCart }: { clearCart: () => void; checkoutCart: () => void }) => (
-    <div className="cart-footer">
-        <button onClick={() => clearCart()} className="clear-cart-btn">
-            Clear
-        </button>
-        <button onClick={() => checkoutCart()} className="checkout-btn">
-            Checkout
-        </button>
-    </div>
+  <div className="cart-footer">
+    <button onClick={() => clearCart()} className="clear-cart-btn">
+      Clear
+    </button>
+    <button onClick={() => checkoutCart()} className="checkout-btn">
+      Checkout
+    </button>
+  </div>
 );

@@ -1,5 +1,7 @@
-function loadImages(imgUrls: string[]): Promise<void[]> {
-  const promises = imgUrls.map(src => {
+function loadImages(imgUrls: string[] | string): Promise<void[]> {
+  const urls = typeof imgUrls === 'string' ? [imgUrls] : imgUrls;
+
+  const promises = urls.map(src => {
     return new Promise<void>((resolve, reject) => {
       const img = new Image();
       img.src = src;
@@ -8,9 +10,9 @@ function loadImages(imgUrls: string[]): Promise<void[]> {
     });
   });
   return Promise.all(promises);
-}
+};
 
-export async function preloadImages (imgUrls: string[]): Promise<void> {
+export async function preloadImages (imgUrls: string[] | string): Promise<void> {
   try {
     await loadImages(imgUrls);
   } catch (error) {
