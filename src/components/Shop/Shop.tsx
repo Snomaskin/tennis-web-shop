@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Product, products, specialPromos, promotions, promoTexts } from "../../data/products.ts"
 import { getPromosFromAll, applyPromosToProducts } from "../../utils/promoUtils.ts";
 import { useShop } from "./ShopContext.tsx";
@@ -60,9 +60,21 @@ interface RenderShopProps {
   promoText?: string,
 };
 
-const RenderShop = ({ displayedProducts, title, onAddToCart, promotions, promoHeader, promoText }: RenderShopProps) => (
-  <>
-    {promotions?.length ? <PopUp promotions={promotions} header={promoHeader} text={promoText}/> : null}
-    <RenderProducts products={displayedProducts} title={title} onAddToCart={onAddToCart} />
-  </>
+const RenderShop = ({ displayedProducts, title, onAddToCart, promotions, promoHeader, promoText }: RenderShopProps) => {
+  const [promoIsShown, setPromoIsShown] = useState(false);
+
+  useEffect(() => {
+    const promoShown = sessionStorage.getItem('promoShown')
+    if (!promoShown && promotions?.length) {
+      setPromoIsShown(true);
+      sessionStorage.setItem('promoShown', 'true')
+    }
+  }, [promotions])
+  
+  return (
+    <>
+      {promoIsShown && promotions?.length ? <PopUp promotions={promotions} header={promoHeader} text={promoText}/> : null}
+      <RenderProducts products={displayedProducts} title={title} onAddToCart={onAddToCart} />
+    </>
 );
+}
