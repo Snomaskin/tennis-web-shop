@@ -4,18 +4,15 @@ import { Link } from "react-router-dom";
 import { Cart } from "../Shop/Cart/Cart";
 import { useSearch } from "../Search/SearchContext";
 import { SearchInput } from "../Search/SearchInput";
+import { navItems } from '../../config/site-navigation';
 import searchIcon from "../../assets/search.png"
 import closeIcon from "../../assets/close.png"
 import classNames from "classnames";
 import "./Navbar.css";
 
 
-interface NavbarProps {
-    navItems: NavItem[]; 
-}
-
-export const Navbar = ({ navItems }: NavbarProps) => {
-  const [hoveredMenuId, setHoveredMenuId] = useState<string | null>(null);
+export const Navbar = () => {
+  const [hoveredid, setHoveredid] = useState<string | null>(null);
   const { isSearching, setIsSearching } = useSearch()
 
   const handleNavClick = () => {
@@ -24,19 +21,19 @@ export const Navbar = ({ navItems }: NavbarProps) => {
 
   return (
     <nav className="navbar">
-      {navItems.map((items) => (
+      {navItems.map((item) => (
         <div 
           className="nav-container" 
-          key={items.menuId}
-          onMouseEnter={() => setHoveredMenuId(items.menuId)}
-          onMouseLeave={() => setHoveredMenuId(null)}
+          key={item.id}
+          onMouseEnter={() => setHoveredid(item.id)}
+          onMouseLeave={() => setHoveredid(null)}
         >
           <Link className="nav" 
-            to={`/${items.menuId}`} 
+            to={item.path} 
             onClick={handleNavClick}>
-              {items.menuName}
+              {item.label}
           </Link>
-          {hoveredMenuId === items.menuId && <HoveredMenu items={items} onItemClick={handleNavClick} />}
+          {hoveredid === item.id && <HoveredMenu menu={item} onItemClick={handleNavClick} />}
         </div>
       ))}
       <SearchToggle isSearching={isSearching} setIsSearching={setIsSearching} />
@@ -48,8 +45,8 @@ export const Navbar = ({ navItems }: NavbarProps) => {
 };
 
 const HoveredMenu = (
-  { items, onItemClick }: 
-  { items: NavItem; 
+  { menu, onItemClick }: 
+  { menu: NavItem; 
     onItemClick: () => void; }) => {
     const [activeItem, setActiveItem] = useState<string | null>(null);
 
@@ -60,17 +57,17 @@ const HoveredMenu = (
 
     return (
       <div className="dropdown">
-        {items.menuItems?.map((item) => (
+        {menu.menuItems?.map((item) => (
           <Link
             className={classNames('list-item', {
               'pop-out': activeItem === item.id
             })} 
             key={item.id} 
-            to={`${item.path}/${item.id}`}
+            to={item.path}
             onClick={() => handleClick(item.id)}
           >
             <img 
-              className={items.menuId === "shop" ? "shop-icon" : "app-icon"} 
+              className={menu.id === "shop" ? "shop-icon" : "app-icon"} 
               src={item.img} 
             />
             {item.label ? <label htmlFor={item.id}>{item.label}</label> : null}
@@ -91,4 +88,4 @@ const SearchToggle = (
       </div>
       {isSearching && <SearchInput />}
     </div>
-)
+);

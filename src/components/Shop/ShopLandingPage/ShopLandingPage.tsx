@@ -9,7 +9,7 @@ export const ShopLandingPage = () => (
       {shopItems.map((item) => (
         <Link className="shop-route"
           key={item.id}
-          to={`/shop/${item.id}`}
+          to={item.path}
         >
           <img className="shop-route-img" src={item.img} />
         </Link>

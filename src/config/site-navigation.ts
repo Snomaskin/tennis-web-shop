@@ -5,32 +5,36 @@ import apparelImg from "../assets/apparel.png"
 
 
 export type NavItem = {
-    menuName: string;
-    menuId: string;
+    label: string;
+    id: string;
+    path: string;
     menuItems?: { label?:string, id:string, path:string, img?: string }[];
 };
 const shopItems = [
-  { label: 'Racquets', id: 'racquets', path: '/shop', img: tennisRacketImg },
-  { label: 'Balls', id: 'balls', path: '/shop', img: tennisBallImg },
-  { label: 'Apparel', id: 'apparel', path: '/shop', img: apparelImg }
+  { label: 'Racquets', id: 'racquets', path: '/shop/racquets', img: tennisRacketImg },
+  { label: 'Balls', id: 'balls', path: '/shop/balls', img: tennisBallImg },
+  { label: 'Apparel', id: 'apparel', path: '/shop/apparel', img: apparelImg }
 ];
 
 const navItems: NavItem[] = [
     {
-        menuName: 'Apps',
-        menuId: 'apps',
+        label: 'Apps',
+        id: 'apps',
+        path: '/apps',
         menuItems: [
             { id: 'matchPredictor', path: '/apps', img: appImg},
         ]
     },
     {
-        menuName: 'Shop',
-        menuId: 'shop',
+        label: 'Shop',
+        id: 'shop',
+        path: '/shop',
         menuItems: shopItems
     },
     {    
-        menuName: 'About',
-        menuId: 'about',
+        label: 'About',
+        id: 'about',
+        path: '/about'
     },
 ];
 
