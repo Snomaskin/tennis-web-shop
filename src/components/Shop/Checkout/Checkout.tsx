@@ -9,7 +9,7 @@ export const Checkout = () => {
   const { currentStep } = useCheckout();
 
   return (
-    <div className="checkout-container">
+    <div className="checkout-container" style={{display: 'flex', justifyContent: 'center'}}>
       {currentStep === 'summary' && <CheckoutSummary />}
       {currentStep === 'shipping' && <CheckoutForm formType={'shipping'} />}
       {currentStep === 'payment' && <CheckoutForm formType={'payment'}/>}
