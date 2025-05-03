@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { Cart } from "../Shop/Cart/Cart";
 import { useSearch } from "../Search/SearchContext";
 import { SearchInput } from "../Search/SearchInput";
-import { navItems } from '../../config/site-navigation';
+import { navItems, loginNav } from '../../config/site-navigation';
+import { AuthModalManager } from "../../auth/AuthModalManager";
 import searchIcon from "../../assets/search.png"
 import closeIcon from "../../assets/close.png"
 import classNames from "classnames";
@@ -13,7 +14,8 @@ import "./Navbar.css";
 
 export const Navbar = () => {
   const [hoveredid, setHoveredid] = useState<string | null>(null);
-  const { isSearching, setIsSearching } = useSearch()
+  const { isSearching, setIsSearching } = useSearch();
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const handleNavClick = () => {
       setIsSearching(false);
@@ -28,7 +30,8 @@ export const Navbar = () => {
           onMouseEnter={() => setHoveredid(item.id)}
           onMouseLeave={() => setHoveredid(null)}
         >
-          <Link className="nav" 
+          <Link 
+            className="nav" 
             to={item.path} 
             onClick={handleNavClick}>
               {item.label}
@@ -38,6 +41,8 @@ export const Navbar = () => {
       ))}
       <SearchToggle isSearching={isSearching} setIsSearching={setIsSearching} />
       <div className="navbar-right">
+        <LoginNav onOpen={() => setShowLoginModal(true)}/>
+        {showLoginModal && <AuthModalManager onClose={() => setShowLoginModal(false)} /> }
         <Cart />
       </div>
     </nav>  
@@ -88,4 +93,14 @@ const SearchToggle = (
       </div>
       {isSearching && <SearchInput />}
     </div>
+);
+
+const LoginNav = ({ onOpen }: { onOpen: () => void }) => (
+  <button 
+    className="nav"
+    id={loginNav.id}
+    onClick={onOpen}
+  >
+    {loginNav.label}
+  </button>
 );

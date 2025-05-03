@@ -41,9 +41,12 @@
     box-sizing: border-box;
     padding: 0 50px;
     transition: all 0.3s ease;
+    border: none;
+    white-space: nowrap;
 }
 
-.nav-container:hover .nav {
+.nav:hover {
+  color: rgb(25, 167, 25);
   background-color: rgba(69, 116, 202, 0.08);
 }
 
