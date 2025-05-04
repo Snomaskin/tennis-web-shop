@@ -18,9 +18,9 @@ export async function fetchData(
     return await handleResponse(response, cacheKey);
   } catch (error) {
     if ((error as any).isServerError) {
-      console.log(`Server error: ${error}`);
+      console.error("Server Error: ", error);
     } else {
-      console.log(`Client Error: ${error}`);
+      console.error("Client Error: ", error);
     }
     throw error;
   };
