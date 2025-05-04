@@ -38,4 +38,10 @@ const navItems: NavItem[] = [
     },
 ];
 
-export { shopItems, navItems }
+const loginNav: NavItem = {
+  label: 'Log in',
+  id: 'login',
+  path: '/login'
+}
+
+export { shopItems, navItems, loginNav }
