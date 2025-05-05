@@ -1,26 +1,32 @@
 import { useForm } from "react-hook-form";
-import type { LoginFields } from "../AuthContext";
+import { useAuth, type LoginFields } from "../AuthContext";
+import { validationRules } from "../config/validationRules";
 
 
 export const LoginModal = ( {onReturn}: { onReturn: () => void } ) => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFields>();
+  const { login } = useAuth();
+
+  const onSubmit = (credentials: LoginFields) => {
+    login(credentials);
+  };
 
   return (
     <div className="auth-form-wrapper">
       <button className="return-btn" onClick={onReturn}>{"<"}</button>
-      <form className="auth-form">
+      <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Log in</h2>
         
-        <label htmlFor="username">
-          Username:
+        <label htmlFor="email">
+          Email:
         </label>
         <input
-          id="username"
+          id="email"
           type="text"
-          {...register("username", {required: "Username is required."})}
+          {...register("email", validationRules.login.email)}
         />
-        {errors.username && (
-          <div className="form-error">{errors.username.message}</div>
+        {errors.email && (
+          <div className="form-error">{errors.email.message}</div>
         )}
 
         <label htmlFor="password">
@@ -29,7 +35,7 @@ export const LoginModal = ( {onReturn}: { onReturn: () => void } ) => {
         <input
           id="password"
           type="text"
-          {...register("password", {required: "Password is required."})}
+          {...register("password")}
         />
         {errors.password && (
           <div className="form-error">{errors.password.message}</div>

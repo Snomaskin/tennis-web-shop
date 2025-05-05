@@ -1,4 +1,4 @@
-import { RegisterModal } from "./modals/RegisterModal";
+import { SignupModal } from "./modals/SignupModal";
 import { LoginModal } from "./modals/LoginModal";
 import { useState, useEffect } from "react"
 import classNames from "classnames";
@@ -44,14 +44,14 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
           <div className="auth-form">
           <h3 className="auth-ladning-msg">Already signed up? <br/>Click 'Log in'.<p/> New user? <br/> Click 'Sign up'.</h3>
           <div className="login-register-btns">
-            <button className="register-btn" onClick={() => setSelectedForm('register')}>Sign up</button>
+            <button className="register-btn" onClick={() => setSelectedForm('signup')}>Sign up</button>
             <button className="login-btn" onClick={() => setSelectedForm('login')}>Log in</button>
           </div>
         </div>
         </div>
       )}
       {selectedFrom === 'login' ? <LoginModal onReturn={() => setSelectedForm(null)} /> : null}
-      {selectedFrom == 'register' ? <RegisterModal onReturn={() => setSelectedForm(null)} /> : null}
+      {selectedFrom === 'signup' ? <SignupModal onReturn={() => setSelectedForm(null)} /> : null}
 
     </Modal>
   );
