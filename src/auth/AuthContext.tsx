@@ -19,7 +19,7 @@ interface AuthContextType {
   publicUser: PublicUser | null;
   isLoggedIn: boolean | null;
   login: (credentials: LoginFields) => Promise<void | string>;
-  register: (data: RegisterFields) => Promise<string>;
+  signup: (data: RegisterFields) => Promise<string>;
   logout: () => void;
 };
 
@@ -42,7 +42,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   };
 
-  const register = async (data: RegisterFields) => {
+  const signup = async (data: RegisterFields) => {
     try {
       const registerSuccessMsg: string = await fetchData(ENDPOINTS.REGISTER, data, FETCH_OPTIONS);
       return registerSuccessMsg;
@@ -59,7 +59,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-  <AuthContext.Provider value={{publicUser, isLoggedIn, login, register, logout}}> 
+  <AuthContext.Provider value={{publicUser, isLoggedIn, login, signup, logout}}> 
     {children}
   </AuthContext.Provider>)
 };
