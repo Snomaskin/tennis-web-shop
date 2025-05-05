@@ -1,25 +1,28 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { fetchData } from "../utils/fetchData";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { auth, firestore } from "./firebase";
 import { getErrorMessage } from "../utils/getErrorMessage";
-import { FETCH_CONFIG } from "../config/fetchConfig";
 
 
 interface FullUser {
   userId: string;
-  username: string;
+  name: string;
+  email: string;
   password: string;
   favFood: string;
 };
 
-type PublicUser = Omit<FullUser, "password">;
-type LoginFields = Pick<FullUser, "username" | "password">;
-type RegisterFields = Omit <FullUser, "userId">;
+type UserProfile =  Omit<FullUser, "password">;
+type PublicUser = Omit<FullUser, "password" | "favFood">;
+type LoginFields = Pick<FullUser, "email" | "password">;
+type SignupFields = Omit <FullUser, "userId">;
 
 interface AuthContextType {
   publicUser: PublicUser | null;
   isLoggedIn: boolean | null;
   login: (credentials: LoginFields) => Promise<void | string>;
-  signup: (data: RegisterFields) => Promise<string>;
+  signup: (data: SignupFields) => Promise<string>;
   logout: () => void;
 };
 
@@ -28,12 +31,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [publicUser, setPublicUser] = useState<PublicUser | null>(null);
-  const { ENDPOINTS, FETCH_OPTIONS } = FETCH_CONFIG;
 
-  const login = async (credentials: LoginFields) => {
+  const login = async ({ email, password }: LoginFields) => {
     try {
-      const fetchedPublicUser: PublicUser = await fetchData(ENDPOINTS.LOGIN, credentials, FETCH_OPTIONS);
-      setPublicUser(fetchedPublicUser);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const publicUser = await getPublicUser(userCredential);
+      setPublicUser(publicUser);
       setIsLoggedIn(true);
     } catch (error) {
       const errorMessage = getErrorMessage(error);
@@ -42,10 +45,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   };
 
-  const signup = async (data: RegisterFields) => {
+  const signup = async ({ name, email, password, favFood }: SignupFields) => {
     try {
-      const registerSuccessMsg: string = await fetchData(ENDPOINTS.REGISTER, data, FETCH_OPTIONS);
-      return registerSuccessMsg;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userId = userCredential.user.uid;
+      const userProfile: UserProfile = {
+        userId,
+        name,
+        email,
+        favFood,
+      };
+      await setDoc(doc(firestore, "users", userId), userProfile);
+      return "Signup successful!";
     } catch (error) {
       const errorMessage = getErrorMessage(error);
       console.error("Register failed: ", errorMessage);
@@ -64,6 +75,22 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   </AuthContext.Provider>)
 };
 
+const getPublicUser = async (userCredential: UserCredential): Promise<PublicUser> => {
+  const uid = userCredential.user.uid;
+  const docRef = doc(firestore, "users", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (!docSnap.exists()) {
+    throw new Error("User profile not found.")
+  }
+    const data = docSnap.data();
+    return {
+      userId: uid,
+      name: data.name,
+      email: data.email,
+    };
+};
+
 const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -72,5 +99,6 @@ const useAuth = () => {
   return context;
 };
 
+
 export { AuthProvider, useAuth };
-export type { FullUser, PublicUser, LoginFields, RegisterFields };
+export type { FullUser, PublicUser, LoginFields, SignupFields };
