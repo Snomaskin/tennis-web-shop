@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth, type SignupFields } from "../AuthContext";
 import { validationRules } from "../config/validationRules"
-
+import { InputWithError } from "../../components/utilComponents/InputWithError/InputWithError";
 
 
 export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
@@ -17,42 +17,34 @@ export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
       <button className="return-btn" onClick={onReturn}>{"<"}</button>
       <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Sign up</h2>
-
-        <label htmlFor="username">
-          Username:
-        </label>
-        <input
-          id="username"
+        
+        <InputWithError
+          label="Name:"
           type="text"
-          {...register("username", validationRules.signup.username)}
+          error={errors.name?.message}
+          register={register("password", validationRules.signup.name)}
         />
-        {errors.username && (
-          <div className="form-error">{errors.username.message}</div>
-        )}
 
-        <label htmlFor="password">
-          Password:
-        </label>
-        <input
-          id="password"
+        <InputWithError
+          label="Email:"
           type="text"
-          {...register("password", validationRules.signup.password)}
+          error={errors.email?.message}
+          register={register("email", validationRules.signup.email)}
         />
-        {errors.password && (
-          <div className="form-error">{errors.password.message}</div>
-        )}
 
-        <label htmlFor="favFood">
-          Favorite Food:
-        </label>
-        <input
-          id="favFood"
-          type="text"
-          {...register("favFood", validationRules.signup.favFood)}
+        <InputWithError
+          label="Password:"
+          type="password"
+          error={errors.password?.message}
+          register={register("password", validationRules.signup.password)}
         />
-        {errors.favFood && (
-          <div className="form-error">{errors.favFood.message}</div>
-        )}
+
+        <InputWithError
+          label="Favorite Food:"
+          type="text"
+          error={errors.favFood?.message}
+          register={register("favFood", validationRules.signup.favFood)}
+        />
 
         <button className="register-btn" type="submit">Register</button>
       </form>

@@ -16,7 +16,7 @@
   outline: none;
   opacity: 0;
   transition: opacity 0.4s ease;
-  min-height: 500px;
+  min-height: 540px;
   min-width: 440px;
 }
 
@@ -26,11 +26,13 @@
 
 .auth-form-wrapper {
   display: flex;
+  margin-bottom: auto;
   padding-bottom: 40px;
   max-width: 450px;
   min-width: 330px;
   min-height: 380px;
 }
+
 .auth-form {
   background-color: var(--tennis-gray);
   display: flex;
@@ -40,16 +42,6 @@
   text-align: left;
 }
 
-.auth-form input[type="text"] {
-  margin: 10px;
-  height: 35px;
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-family: inherit;
-}
 .auth-ladning-msg {
   background-color: rgba(255, 255, 255, 0.762);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -59,6 +51,7 @@
   font-weight: 450;
   white-space: nowrap;
 }
+
 .login-register-btns {
   display: flex;
   justify-content: center;

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth, type LoginFields } from "../AuthContext";
 import { validationRules } from "../config/validationRules";
+import { InputWithError } from "../../components/utilComponents/InputWithError/InputWithError";
 
 
 export const LoginModal = ( {onReturn}: { onReturn: () => void } ) => {
@@ -16,30 +17,20 @@ export const LoginModal = ( {onReturn}: { onReturn: () => void } ) => {
       <button className="return-btn" onClick={onReturn}>{"<"}</button>
       <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Log in</h2>
-        
-        <label htmlFor="email">
-          Email:
-        </label>
-        <input
-          id="email"
-          type="text"
-          {...register("email", validationRules.login.email)}
-        />
-        {errors.email && (
-          <div className="form-error">{errors.email.message}</div>
-        )}
 
-        <label htmlFor="password">
-          Password:
-        </label>
-        <input
-          id="password"
+        <InputWithError
+          label="Email:"
           type="text"
-          {...register("password")}
+          error={errors.email?.message}
+          register={register("email", validationRules.login.email)}
         />
-        {errors.password && (
-          <div className="form-error">{errors.password.message}</div>
-        )}
+        
+        <InputWithError
+          label="Password:"
+          type="password"
+          error={errors.password?.message}
+          register={register("password")}
+        />
 
         <button className="login-btn" type="submit">Continue</button>
       </form>
