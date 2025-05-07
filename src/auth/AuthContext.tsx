@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { auth, firestore } from "./firebase";
+import { auth, firestore } from "../config/firebase";
 import { getErrorMessage } from "../utils/getErrorMessage";
 
 
@@ -19,7 +19,7 @@ type LoginFields = Pick<FullUser, "email" | "password">;
 type SignupFields = Omit <FullUser, "userId">;
 
 interface AuthContextType {
-  publicUser: PublicUser | null;
+  currentUser: PublicUser | null;
   isLoggedIn: boolean | null;
   login: (credentials: LoginFields) => Promise<void | string>;
   signup: (data: SignupFields) => Promise<string>;
@@ -30,14 +30,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-  const [publicUser, setPublicUser] = useState<PublicUser | null>(null);
+  const [currentUser, setCurrentUser] = useState<PublicUser | null>(null);
 
   const login = async ({ email, password }: LoginFields) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const publicUser = await getPublicUser(userCredential);
-      setPublicUser(publicUser);
+      setCurrentUser(publicUser);
       setIsLoggedIn(true);
+      return "Login successful!"
     } catch (error) {
       const errorMessage = getErrorMessage(error);
       console.error("Login failed: ", errorMessage);
@@ -66,11 +67,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setIsLoggedIn(null);
-    setPublicUser(null);
+    setCurrentUser(null);
   };
 
   return (
-  <AuthContext.Provider value={{publicUser, isLoggedIn, login, signup, logout}}> 
+  <AuthContext.Provider value={{currentUser, isLoggedIn, login, signup, logout}}> 
     {children}
   </AuthContext.Provider>)
 };
