@@ -1,4 +1,5 @@
 import Modal from 'react-modal';
+import { showModal, hideModal } from '../../../utils/setModalVisibility';
 import { ReactNode, useState, useEffect } from "react";
 import classNames from 'classnames';
 import "./PopUp.css";
@@ -15,19 +16,12 @@ export const PopUp = ({ header, text, promotions }: PopUpProps) => {
   const smallScreen = window.innerWidth <= 700;
   if (smallScreen) return null;
 
-
   useEffect(() => {
-    setIsOpen(true);
-    setTimeout(() => {
-      setIsVisible(true);
-    }, 50);
+    showModal(setIsOpen, setIsVisible, 50);
   }, []);
 
   const closePopUp = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      setIsOpen(false);
-    }, 400);
+    hideModal(setIsOpen, setIsVisible, 0, 400)
   };
 
   return (

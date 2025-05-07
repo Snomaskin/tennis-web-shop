@@ -1,5 +1,7 @@
 import { SignupModal } from "./modals/SignupModal";
 import { LoginModal } from "./modals/LoginModal";
+import { useAuth } from "./AuthContext";
+import { showModal, hideModal } from "../utils/setModalVisibility";
 import { useState, useEffect } from "react"
 import classNames from "classnames";
 import Modal from "react-modal";
@@ -10,20 +12,20 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedFrom, setSelectedForm] = useState<string | null>(null);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    setIsOpen(true);
-    setTimeout(() => {
-      setIsVisible(true);
-    }, 50);
+    showModal(setIsOpen, setIsVisible, 50);
   }, []);
 
+  useEffect(() => {
+    if (isLoggedIn){
+      hideModal(setIsOpen, setIsVisible, 2500, 400, onClose);
+    };
+  }, [isLoggedIn]);
+
   const closePopUp = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      setIsOpen(false);
-      onClose();
-    }, 400);
+    hideModal(setIsOpen, setIsVisible, 0, 400, onClose);
   };
 
   return (
@@ -31,10 +33,11 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
       isOpen={isOpen}
       onRequestClose={closePopUp}
       className={classNames('auth-popup-content', {
-        'visible': isVisible
+        'visible': isVisible,
+
       })}
-      overlayClassName={classNames('popup-overlay', {
-        'visible': isVisible
+      overlayClassName={classNames('auth-popup-overlay', {
+        'visible': isVisible,
       })}
       ariaHideApp={false}
     >
@@ -42,7 +45,7 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
       {!selectedFrom && (
         <div className="auth-form-wrapper">
           <div className="auth-form">
-          <h3 className="auth-ladning-msg">Already signed up? <br/>Click 'Log in'.<p/> New user? <br/> Click 'Sign up'.</h3>
+          <h3 className="auth-ladning-msg">Returning user? <p/>Click 'Log in'.<p/><br/> New user? <p/> Click 'Sign up'.</h3>
           <div className="login-register-btns">
             <button className="register-btn" onClick={() => setSelectedForm('signup')}>Sign up</button>
             <button className="login-btn" onClick={() => setSelectedForm('login')}>Log in</button>

@@ -1,3 +1,20 @@
+.auth-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.auth-popup-overlay.visible {
+  opacity: 1;
+}
+
 .auth-popup-content {
   display: flex;
   flex-direction: column;
@@ -28,14 +45,17 @@
   display: flex;
   margin-bottom: auto;
   padding-bottom: 40px;
-  max-width: 450px;
+  max-width: 330px;
   min-width: 330px;
   min-height: 380px;
+
+  justify-content: center;
 }
 
 .auth-form {
   background-color: var(--tennis-gray);
   display: flex;
+  width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 25px 50px;
   flex-direction: column;
@@ -46,21 +66,51 @@
   background-color: rgba(255, 255, 255, 0.762);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 2rem;
-
   margin-bottom: 2rem;
   font-weight: 450;
   white-space: nowrap;
-}
+  text-align: center;
+} 
 
 .login-register-btns {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  background-color: rgba(255, 255, 255, 0.762);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
+  padding-inline: 2rem;
+
+}
+
+.return-btn {
+  background-color: rgba(152, 208, 83, 0.588);
+  min-width: 40px;
+  font-size: 1.7rem;
+  border-radius: 5px;
+  border-style: none;
+  cursor: pointer;
+}
+
+.return-btn:hover {
+  transform: translateX(2px);
+  background-color: rgba(152, 208, 83, 0.847);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.15);
+  transition: transform ease 0.5s, box-shadow ease 0.3s;
+}
+.auth-form-footer {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .login-btn, .register-btn {
   align-self: flex-end;
-  margin-left: 20px;
+
   margin-top: 8px;
   padding: 15px;
   min-width: 80px;
@@ -98,20 +148,19 @@
   transform: translateY(-1px);
 }
 
-.return-btn {
-  background-color: rgba(152, 208, 83, 0.588);
-  min-width: 40px;
-  font-size: 1.7rem;
-  border-radius: 5px;
-  border-style: none;
-  cursor: pointer;
-}
-
-.return-btn:hover {
-  transform: translateX(2px);
-  background-color: rgba(152, 208, 83, 0.847);
-  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.15);
-  transition: transform ease 0.5s, box-shadow ease 0.3s;
+.login-signup-msg {
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.762);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 450;
+  width: 100%;
+  max-width: 100%;
+  word-break: break-word;
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: center;
 }
 
 .auth-popup-close {
