@@ -7,22 +7,25 @@ import { App } from './App.tsx';
 import { ImagePreloader } from './components/utilComponents/ImagePreloader.tsx';
 import { CheckoutProvider } from './components/Shop/Checkout/CheckoutContext.tsx';
 import { ShopProvider } from './components/Shop/ShopContext.tsx';
+import { AuthProvider } from './auth/AuthContext.tsx';
 import './main.css'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <CartProvider>
-        <CheckoutProvider>
-          <ShopProvider>
-            <SearchProvider>
-              <App />
-              <ImagePreloader />
-            </SearchProvider>
-          </ShopProvider>
-        </CheckoutProvider>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <CheckoutProvider>
+            <ShopProvider>
+              <SearchProvider>
+                <App />
+                <ImagePreloader />
+              </SearchProvider>
+            </ShopProvider>
+          </CheckoutProvider>
+        </CartProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );
