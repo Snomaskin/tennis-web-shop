@@ -2,14 +2,17 @@ import { useForm } from "react-hook-form";
 import { useAuth, type SignupFields } from "../AuthContext";
 import { validationRules } from "../config/validationRules"
 import { InputWithError } from "../../components/utilComponents/InputWithError/InputWithError";
+import { useState } from "react";
 
 
 export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
   const { register, handleSubmit, formState: { errors } } = useForm<SignupFields>();
   const { signup } = useAuth();
+  const [signupMessage, setSigupMessage] = useState<string | null>(null);
 
-  const onSubmit = (data: SignupFields) => {
-    signup(data);
+  const onSubmit = async (data: SignupFields) => {
+    const signupResult = await signup(data);
+    setSigupMessage(signupResult);
   };
   
   return (
@@ -22,7 +25,7 @@ export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
           label="Name:"
           type="text"
           error={errors.name?.message}
-          register={register("password", validationRules.signup.name)}
+          register={register("name", validationRules.signup.name)}
         />
 
         <InputWithError
@@ -46,7 +49,14 @@ export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
           register={register("favFood", validationRules.signup.favFood)}
         />
 
-        <button className="register-btn" type="submit">Register</button>
+        <div className="auth-form-footer">
+          <button className="register-btn" type="submit">Register</button>
+          {signupMessage && (
+            <div className="login-signup-msg">
+              {signupMessage}
+            </div>
+          )}
+        </div>
       </form>
     </div>
   )

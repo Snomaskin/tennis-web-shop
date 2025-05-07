@@ -2,14 +2,22 @@ import { useForm } from "react-hook-form";
 import { useAuth, type LoginFields } from "../AuthContext";
 import { validationRules } from "../config/validationRules";
 import { InputWithError } from "../../components/utilComponents/InputWithError/InputWithError";
+import { useState } from "react";
 
 
-export const LoginModal = ( {onReturn}: { onReturn: () => void } ) => {
+export const LoginModal = ({ onReturn }: { onReturn: () => void }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFields>();
   const { login } = useAuth();
+  const [loginMessage, setLoginMessage] = useState<string | null>(null);
 
-  const onSubmit = (credentials: LoginFields) => {
-    login(credentials);
+
+  const onSubmit = async (credentials: LoginFields) => {
+    const loginResult = await login(credentials);
+    if (loginResult) {
+      setLoginMessage(loginResult);
+    } else {
+      setLoginMessage(null);
+    };
   };
 
   return (
@@ -32,7 +40,14 @@ export const LoginModal = ( {onReturn}: { onReturn: () => void } ) => {
           register={register("password")}
         />
 
-        <button className="login-btn" type="submit">Continue</button>
+        <div className="auth-form-footer">
+          <button className="login-btn" type="submit">Continue</button>
+          {loginMessage && (
+            <div className="login-signup-msg">
+              {loginMessage}
+            </div>
+          )}
+        </div>
       </form>
     </div>
   );
