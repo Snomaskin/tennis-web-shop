@@ -72,20 +72,6 @@
   text-align: center;
 } 
 
-.login-register-btns {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  background-color: rgba(255, 255, 255, 0.762);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-  padding-inline: 2rem;
-
-}
-
 .return-btn {
   background-color: rgba(152, 208, 83, 0.588);
   min-width: 40px;

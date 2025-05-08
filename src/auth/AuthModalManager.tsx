@@ -45,11 +45,12 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
       {!selectedFrom && (
         <div className="auth-form-wrapper">
           <div className="auth-form">
-          <h3 className="auth-ladning-msg">Returning user? <p/>Click 'Log in'.<p/><br/> New user? <p/> Click 'Sign up'.</h3>
-          <div className="login-register-btns">
-            <button className="register-btn" onClick={() => setSelectedForm('signup')}>Sign up</button>
-            <button className="login-btn" onClick={() => setSelectedForm('login')}>Log in</button>
-          </div>
+          <h3 className="auth-ladning-msg">
+            Returning user? <p/><button className="login-btn" onClick={() => setSelectedForm('login')}>
+              Log in</button><p/><br/> 
+            New user? <p/><button className="register-btn" onClick={() => setSelectedForm('signup')}>
+              Sign up</button>
+          </h3>
         </div>
         </div>
       )}
