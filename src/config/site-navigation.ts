@@ -17,31 +17,25 @@ const shopItems = [
 ];
 
 const navItems: NavItem[] = [
-    {
-        label: 'Apps',
-        id: 'apps',
-        path: '/apps',
-        menuItems: [
-            { id: 'matchPredictor', path: '/apps', img: appImg},
-        ]
-    },
-    {
-        label: 'Shop',
-        id: 'shop',
-        path: '/shop',
-        menuItems: shopItems
-    },
-    {    
-        label: 'About',
-        id: 'about',
-        path: '/about'
-    },
+  {
+    label: 'Apps',
+    id: 'apps',
+    path: '/apps',
+    menuItems: [
+      { id: 'matchPredictor', path: '/apps', img: appImg},
+    ]
+  },
+  {
+    label: 'Shop',
+    id: 'shop',
+    path: '/shop',
+    menuItems: shopItems
+  },
+  {    
+    label: 'About',
+    id: 'about',
+    path: '/about'
+  },
 ];
 
-const loginNav: NavItem = {
-  label: 'Log in',
-  id: 'login',
-  path: '/login'
-}
-
-export { shopItems, navItems, loginNav }
+export { shopItems, navItems };

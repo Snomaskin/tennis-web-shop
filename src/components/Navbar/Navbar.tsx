@@ -6,6 +6,7 @@ import { useSearch } from "../Search/SearchContext";
 import { SearchInput } from "../Search/SearchInput";
 import { navItems, loginNav } from '../../config/site-navigation';
 import { AuthModalManager } from "../../auth/AuthModalManager";
+import { useAuth } from "../../auth/AuthContext";
 import searchIcon from "../../assets/search.png"
 import closeIcon from "../../assets/close.png"
 import classNames from "classnames";
@@ -16,6 +17,7 @@ export const Navbar = () => {
   const [hoveredid, setHoveredid] = useState<string | null>(null);
   const { isSearching, setIsSearching } = useSearch();
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
 
   const handleNavClick = () => {
       setIsSearching(false);
@@ -41,7 +43,9 @@ export const Navbar = () => {
       ))}
       <SearchToggle isSearching={isSearching} setIsSearching={setIsSearching} />
       <div className="navbar-right">
-        <LoginNav onOpen={() => setShowLoginModal(true)}/>
+        <LoginNav 
+          label={isLoggedIn ? "Log out" : "Log in"}
+          onClick={isLoggedIn ? logout :  () => setShowLoginModal(true)}/>
         {showLoginModal && <AuthModalManager onClose={() => setShowLoginModal(false)} /> }
         <Cart />
       </div>
@@ -95,12 +99,11 @@ const SearchToggle = (
     </div>
 );
 
-const LoginNav = ({ onOpen }: { onOpen: () => void }) => (
+const LoginNav = ({ label, onClick }: { label: string, onClick: () => void }) => (
   <button 
     className="nav"
-    id={loginNav.id}
-    onClick={onOpen}
+    onClick={onClick}
   >
-    {loginNav.label}
+    {label}
   </button>
 );
