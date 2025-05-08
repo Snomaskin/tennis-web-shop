@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Cart } from "../Shop/Cart/Cart";
 import { useSearch } from "../Search/SearchContext";
 import { SearchInput } from "../Search/SearchInput";
-import { navItems, loginNav } from '../../config/site-navigation';
+import { navItems } from '../../config/site-navigation';
 import { AuthModalManager } from "../../auth/AuthModalManager";
 import { useAuth } from "../../auth/AuthContext";
 import searchIcon from "../../assets/search.png"
