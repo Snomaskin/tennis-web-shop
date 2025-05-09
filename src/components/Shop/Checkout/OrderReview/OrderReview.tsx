@@ -1,11 +1,22 @@
 import { CheckoutBtns } from "../CheckoutBtns/CheckoutBtns";
 import { useCheckout } from "../CheckoutContext";
 import { CheckoutSummary } from "../CheckoutSummary/CheckoutSummary";
+import { useOrder } from "../../Orders/OrderContext";
 import "./OrderReview.css"
 
 
 export const OrderReview = () => {
-    const { shippingInfo, paymentInfo } = useCheckout();
+    const { shippingInfo, paymentInfo, setConfirmationStep } = useCheckout();
+    const { placeOrder } = useOrder();
+
+    const handleSubmit = async () => {
+      try {
+        await placeOrder(shippingInfo, paymentInfo);
+        setConfirmationStep();
+      } catch (error) {
+        console.error("Error placing order: ", error);
+      };
+    };
 
     return (
         <div className="review-wrapper">
@@ -31,7 +42,7 @@ export const OrderReview = () => {
                         <p><strong>Card Holder: </strong>{paymentInfo.cardHolder}</p>
                     </div>
                 </div>
-                <CheckoutBtns />
+                <CheckoutBtns onSubmit={handleSubmit} />
 
             </div>
         </div>

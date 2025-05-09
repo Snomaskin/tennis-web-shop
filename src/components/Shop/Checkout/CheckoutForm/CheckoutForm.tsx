@@ -1,7 +1,8 @@
 import { useForm, FieldError } from "react-hook-form";
-import { PaymentInfo, ShippingInfo, useCheckout } from "../CheckoutContext";
+import { useCheckout } from "../CheckoutContext";
 import { CheckoutBtns } from "../CheckoutBtns/CheckoutBtns";
 import { validationRules } from "./validationRules";
+import { ShippingInfo, PaymentInfo } from "../../types";
 import "./CheckoutForm.css";
 
 

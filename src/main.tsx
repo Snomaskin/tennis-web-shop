@@ -8,6 +8,7 @@ import { ImagePreloader } from './components/utilComponents/ImagePreloader.tsx';
 import { CheckoutProvider } from './components/Shop/Checkout/CheckoutContext.tsx';
 import { ShopProvider } from './components/Shop/ShopContext.tsx';
 import { AuthProvider } from './auth/AuthContext.tsx';
+import { OrderProvider } from './components/Shop/Orders/OrderContext.tsx';
 import './main.css'
 
 
@@ -16,14 +17,16 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <CheckoutProvider>
-            <ShopProvider>
-              <SearchProvider>
-                <App />
-                <ImagePreloader />
-              </SearchProvider>
-            </ShopProvider>
-          </CheckoutProvider>
+          <OrderProvider>
+            <CheckoutProvider>
+              <ShopProvider>
+                <SearchProvider>
+                  <App />
+                  <ImagePreloader />
+                </SearchProvider>
+              </ShopProvider>
+            </CheckoutProvider>
+          </OrderProvider>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>

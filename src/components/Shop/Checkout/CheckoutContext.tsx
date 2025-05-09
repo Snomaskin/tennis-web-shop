@@ -1,23 +1,9 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { useCart } from "../Cart/CartContext";
+import { defaultPaymentInfo, defaultShippingInfo } from "../types";
+import type { ShippingInfo, PaymentInfo } from "../types";
 
 
-export type CheckoutStep = 'summary' | 'shipping' | 'payment' | 'review' | 'confirmation';
-
-export type ShippingInfo = {
-  name: string;
-  address: string;
-  city: string;
-  zipCode: string;
-  country: string;
-};
-
-export type PaymentInfo = {
-  cardNumber: string;
-  cardHolder: string;
-  expiryDate: string;
-  cvv: string;
-};
+type CheckoutStep = 'summary' | 'shipping' | 'payment' | 'review' | 'confirmation';
 
 interface CheckoutContextType {
   currentStep: CheckoutStep;
@@ -29,30 +15,15 @@ interface CheckoutContextType {
   prevStep: () => void;
   goToStep: (step: CheckoutStep) => void;
   resetCheckout: () => void;
-}
-
-export const CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);
-
-const defaultShippingInfo: ShippingInfo = {
-  name: "",
-  address: "",
-  city: "",
-  zipCode: "",
-  country: ""
+  setConfirmationStep: () => void;
 };
 
-const defaultPaymentInfo: PaymentInfo = {
-  cardNumber: "",
-  cardHolder: "",
-  expiryDate: "",
-  cvv: ""
-};
+const CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);
 
-export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
+const CheckoutProvider = ({ children }: { children: ReactNode }) => {
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('summary');
   const [shippingInfo, setShippingInfo] = useState<ShippingInfo>(defaultShippingInfo);
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>(defaultPaymentInfo);
-  const { cart } = useCart();
   
   const updateShippingInfo = (info: Partial<ShippingInfo>) => {
     setShippingInfo(prev => ({ ...prev, ...info }));
@@ -74,13 +45,8 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
         setCurrentStep('review');
         break;
       case 'review':
-        if (cart.length > 0) {
-          setCurrentStep('confirmation');
-          break;
-        } else {
-          break;
-        }
-    }
+        break;
+    };
   };
 
   const prevStep = () => {
@@ -92,13 +58,17 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
         setCurrentStep('shipping');
         break;
       case 'review':
-          setCurrentStep('payment');
+        setCurrentStep('payment');
         break;
-    }
+    };
   };
 
   const goToStep = (step: CheckoutStep) => {
     setCurrentStep(step);
+  };
+
+  const setConfirmationStep = () => {
+    setCurrentStep('confirmation');
   };
 
   const resetCheckout = () => {
@@ -119,6 +89,7 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
         prevStep,
         goToStep,
         resetCheckout,
+        setConfirmationStep
       }}
     >
       {children}
@@ -126,10 +97,12 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useCheckout = () => {
+const useCheckout = () => {
   const context = useContext(CheckoutContext);
   if (!context) {
     throw new Error("useCheckout must be used within a CheckoutProvider");
-  }
+  };
   return context;
 };
+
+export { CheckoutProvider, useCheckout };

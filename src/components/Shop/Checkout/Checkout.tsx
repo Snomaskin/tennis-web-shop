@@ -1,8 +1,8 @@
-import { useCheckout } from "./CheckoutContext";
 import { CheckoutSummary } from "./CheckoutSummary/CheckoutSummary";
 import { CheckoutForm } from "./CheckoutForm/CheckoutForm";
 import { OrderReview } from "./OrderReview/OrderReview";
 import { OrderConfirmation } from "./OrderConfirmation/OrderConfirmation";
+import { useCheckout } from './CheckoutContext';
 
 
 export const Checkout = () => {
