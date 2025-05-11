@@ -52,7 +52,7 @@ const OrderProvider = ({ children }: {children: ReactNode}) => {
     };
 
     try {
-      const docRef = await addDoc(collection(firestore, 'orders'), orderDetails);
+      const docRef = await addDoc(collection(firestore, "orders"), orderDetails);
       const finalOrder = { 
         ...orderDetails, 
         orderId: docRef.id 
@@ -63,7 +63,7 @@ const OrderProvider = ({ children }: {children: ReactNode}) => {
       
       return;
     } catch (error) {
-      console.error("Error placing order:", error);
+      console.error("Error placing order: ", error);
       throw error;
     }
   };
@@ -71,10 +71,8 @@ const OrderProvider = ({ children }: {children: ReactNode}) => {
   const getOrders = async (identifier?: string) => {
     if (!identifier && isLoggedIn) {
       const userId = currentUser?.userId;
-
       if (!userId) return [];
 
-      try {
         const ordersRef = collection(firestore, "orders");
         const q = query(ordersRef, where("userId", "==", userId));
         const querySnapshot = await getDocs(q);
@@ -85,29 +83,20 @@ const OrderProvider = ({ children }: {children: ReactNode}) => {
         }));
         
         return orders as OrderType[];
-      } catch (error) {
-        console.error("Error fetching orders", error);
       }
-    } else if (identifier) {
-      try {
+      
+      if (identifier) {
         const docRef = doc(firestore, "orders", identifier);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          const order = { ...docSnap.data(), orderId: docSnap.id }
-
+          const order = { ...docSnap.data(), orderId: docSnap.id };
           return [order] as OrderType[];
         } else {
-          console.log("No matching order found");
-
-          return null;
+          throw new Error("Order not found")
         };
-      } catch (error) {
-        console.error("Error fetching order", error);
-    };
-    };
-
-    return null;
+      };
+    throw new Error("Invalid function call");
   };
 
   return (
