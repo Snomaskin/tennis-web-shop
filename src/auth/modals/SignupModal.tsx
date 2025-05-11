@@ -2,7 +2,9 @@ import { useForm } from "react-hook-form";
 import { useAuth, type SignupFields } from "../AuthContext";
 import { validationRules } from "../config/validationRules"
 import { InputWithError } from "../../components/utilComponents/InputWithError/InputWithError";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { doc, setDoc } from "firebase/firestore";
+import { firestore } from "../../config/firebase"; // update path as needed
 
 
 export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
@@ -14,7 +16,19 @@ export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
     const signupResult = await signup(data);
     setSigupMessage(signupResult);
   };
-  
+
+
+useEffect(() => {
+  const writeTest = async () => {
+    try {
+      await setDoc(doc(firestore, "testCollection", "testDoc"), {
+        hello: "world"
+      });
+    } catch (err) {
+    }
+  };
+  writeTest();
+}, []);
   return (
     <div className="auth-form-wrapper">
       <button className="return-btn" onClick={onReturn}>{"<"}</button>

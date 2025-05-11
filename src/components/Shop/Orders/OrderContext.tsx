@@ -10,7 +10,7 @@ interface OrderContextType {
   tempOrder: OrderType;
   setTempOrder: React.Dispatch<React.SetStateAction<OrderType>>;
   placeOrder: (shippingDetails: ShippingInfo, paymentDetails: PaymentInfo) => Promise<void>;
-  getOrders: (identifier?: string) => Promise<OrderType | OrderType[] | null>;
+  getOrders: (identifier?: string) => Promise<OrderType[] | null>;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -71,29 +71,40 @@ const OrderProvider = ({ children }: {children: ReactNode}) => {
   const getOrders = async (identifier?: string) => {
     if (!identifier && isLoggedIn) {
       const userId = currentUser?.userId;
-      const ordersRef = collection(firestore, "orders");
 
       if (!userId) return [];
-      const q = query(ordersRef, where("userId", "==", userId));
-      const querySnapshot = await getDocs(q);
 
-      const orders = querySnapshot.docs.map(doc => ({
-        ...doc.data(),
-        orderId: doc.id,
-      }));
-      
-      return orders as OrderType[];
+      try {
+        const ordersRef = collection(firestore, "orders");
+        const q = query(ordersRef, where("userId", "==", userId));
+        const querySnapshot = await getDocs(q);
+
+        const orders = querySnapshot.docs.map(doc => ({
+          ...doc.data(),
+          orderId: doc.id,
+        }));
+        
+        return orders as OrderType[];
+      } catch (error) {
+        console.error("Error fetching orders", error);
+      }
     } else if (identifier) {
-      const docRef = doc(firestore, "orders", identifier);
-      const docSnap = await getDoc(docRef);
+      try {
+        const docRef = doc(firestore, "orders", identifier);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const order = { ...docSnap.data(), orderId: docSnap.id }
-        return order as OrderType;
-      } else {
-        console.log("No matching order found");
-        return null;
-      };
+        if (docSnap.exists()) {
+          const order = { ...docSnap.data(), orderId: docSnap.id }
+
+          return [order] as OrderType[];
+        } else {
+          console.log("No matching order found");
+
+          return null;
+        };
+      } catch (error) {
+        console.error("Error fetching order", error);
+    };
     };
 
     return null;

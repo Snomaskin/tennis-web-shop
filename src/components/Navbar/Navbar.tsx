@@ -47,6 +47,15 @@ export const Navbar = () => {
           label={isLoggedIn ? "Log out" : "Log in"}
           onClick={isLoggedIn ? logout :  () => setShowLoginModal(true)}/>
         {showLoginModal && <AuthModalManager onClose={() => setShowLoginModal(false)} /> }
+        <div className="nav-container">
+          <Link
+            className="nav"
+            to="/orders"
+            onClick={handleNavClick}
+          >
+            Orders
+          </Link>
+        </div>
         <Cart />
       </div>
     </nav>  

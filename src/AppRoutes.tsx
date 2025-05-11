@@ -5,6 +5,7 @@ import { Shop } from "./components/Shop/Shop.tsx"
 import { useText } from "./data/texts.ts";
 import { MatchPredictor } from "./components/apps/MatchPredictor.tsx";
 import { Checkout } from "./components/Shop/Checkout/Checkout.tsx";
+import { Orders } from "./components/Shop/Orders/Orders.tsx";
 
 
 export const AppRoutes = () => {
@@ -17,6 +18,7 @@ export const AppRoutes = () => {
             <Route path="/shop/:category" element={<Shop />}/>
             <Route path="/about" element={<TextPage {...useText('about')}/>} />
             <Route path="/checkout" element={<Checkout />}/>
+            <Route path="/orders" element={<Orders />} />
         </Routes>
     );
 }

@@ -13,6 +13,10 @@ export interface TextPageType {
     p1?: string;
     p2?: string;
     p3?: string;
+    title2?: string;
+    p4?: string;
+    p5?: string;
+    p6?: string;
   };
 };
 
@@ -32,6 +36,10 @@ export const TextPage = ({ outerText, innerText }: TextPageType) => {
         {innerText?.p1 && <p>{innerText.p1}</p>}
         {innerText?.p2 && <p>{innerText.p2}</p>}
         {innerText?.p3 && <p>{innerText.p3}</p>}
+        {innerText?.title2 && <h2>{innerText.title2}</h2>}
+        {innerText?.p4 && <p>{innerText.p4}</p>}
+        {innerText?.p5 && <p>{innerText.p5}</p>}
+        {innerText?.p6 && <p>{innerText.p6}</p>}
       </div>
       }
     </div>

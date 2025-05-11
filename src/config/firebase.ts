@@ -4,7 +4,7 @@ import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 
 const firebaseConfig = {
-  projectId: "test",
+  projectId: "tennis-web-shop",
   apiKey: "fake-api-key",
   authDomain: "tennis-web-shop.firebaseapp.com"
 };

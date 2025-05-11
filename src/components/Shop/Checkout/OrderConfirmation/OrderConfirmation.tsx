@@ -25,13 +25,16 @@ export const OrderConfirmation = () => {
     <div>
       <TextPage 
         outerText={{
-            title: `Order Confirmation for Order: ${orderId}`,
-            p1: `Thank you for your order, ${shippingDetails.name}!`,
-            p2: `Your items will be shipped to: ${shippingDetails.address}, ${shippingDetails.city}, ${shippingDetails.zipCode}, ${shippingDetails.country}`
+            title: "Thank you for your purchase!",
+            p1: "\u00A0\u00A0Save your order number to find it through the menu above.",
+            p2: `\u00A0\u00A0Order number: ${orderId}`,
         }}
         innerText={{
-            title: 'Payment Details',
-            p1: `Card ending in: ${paymentDetails.cardNumber.slice(-4)}`
+            title: "Shipping to:",
+            p1: `${shippingDetails.address}, ${shippingDetails.zipCode}`,
+            p2: `${shippingDetails.city}, ${shippingDetails.country}`,
+            title2: "Payment Details:",
+            p4: `Card ending with: ${paymentDetails.cardNumber.slice(-4).padStart(paymentDetails.cardNumber.length, '*')}`,
         }}
       />
     </div>
