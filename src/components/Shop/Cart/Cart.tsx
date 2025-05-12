@@ -75,20 +75,35 @@ export const Cart = () => {
                   </li>
                 ))}
               </ul>
-              <CartBtns clearCart={clearCart} checkoutCart={checkoutCart} />
+              <CartBtns 
+                clearCart={clearCart} 
+                checkoutCart={checkoutCart} 
+                onCheckout={{setIsClicked, setIsSelected}} 
+              />
           </div>
         }
     </div>
   );
 };
 
-const CartBtns = ({ clearCart, checkoutCart }: { clearCart: () => void; checkoutCart: () => void }) => (
-  <div className="cart-footer">
-    <button onClick={() => clearCart()} className="clear-cart-btn">
-      Clear
-    </button>
-    <button onClick={() => checkoutCart()} className="checkout-btn">
-      Checkout
-    </button>
-  </div>
+const CartBtns = ({ clearCart, checkoutCart, onCheckout }: 
+  { clearCart: () => void, checkoutCart: () => void, 
+    onCheckout: {
+      setIsClicked: React.Dispatch<React.SetStateAction<boolean>>,
+      setIsSelected: React.Dispatch<React.SetStateAction<boolean>>
+    }}) => (
+
+    <div className="cart-footer">
+      <button onClick={() => clearCart()} className="clear-cart-btn">
+        Clear
+      </button>
+      <button onClick={() => {
+        checkoutCart(); 
+        onCheckout.setIsClicked(false); 
+        onCheckout.setIsSelected(false)
+       }} className="checkout-btn"
+      >
+        Checkout
+      </button>
+    </div>
 );
