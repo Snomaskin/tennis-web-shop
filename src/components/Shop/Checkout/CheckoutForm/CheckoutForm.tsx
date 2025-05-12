@@ -3,10 +3,10 @@ import { useCheckout } from "../CheckoutContext";
 import { CheckoutBtns } from "../CheckoutBtns/CheckoutBtns";
 import { validationRules } from "./validationRules";
 import { ShippingInfo, PaymentInfo } from "../../types";
+import { InputWithError } from "../../../utilComponents/InputWithError/InputWithError";
+import { FormTypes, FormFieldKey, autofillPayment, autofillShipping, forms } from "./formTypes";
 import "./CheckoutForm.css";
 
-
-type FormTypes = "shipping" | "payment";
 
 export const CheckoutForm = ({ formType }: { formType: FormTypes }) => {
   const { paymentInfo, updatePaymentInfo, shippingInfo, updateShippingInfo, nextStep } = useCheckout();
@@ -16,17 +16,11 @@ export const CheckoutForm = ({ formType }: { formType: FormTypes }) => {
   };
   
   const initialData = isShippingForm(formType) ? shippingInfo : paymentInfo;
-  const formTitle = isShippingForm(formType) ? "Shipping Info" : "Payment Info";
+  const formTitle = isShippingForm(formType) ? "Shipping" : "Payment";
   
   type FormData = typeof initialData;
   
-  const { 
-    register, 
-    handleSubmit, 
-    formState: { errors } 
-  } = useForm<FormData>({
-    defaultValues: initialData
-  });
+  const { register, reset, handleSubmit, formState: { errors } } = useForm<FormData>({defaultValues: initialData});
   
   const onSubmit = (data: FormData) => {
     if (isShippingForm(formType)) {
@@ -46,26 +40,22 @@ export const CheckoutForm = ({ formType }: { formType: FormTypes }) => {
     <div className="form-wrapper">
       <form className="checkout-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>{formTitle}</h2>
+        <button type="button" className="autofill-btn" onClick={() => reset(formType === "shipping" ? autofillShipping : autofillPayment)}>
+          Autofill
+        </button>
         
-        {Object.keys(initialData).map((field) => {
+        {(Object.keys(forms[formType]) as FormFieldKey<typeof formType>[]).map((field) => {
           const fieldError = errors[field as keyof FormData] as FieldError | undefined;
+          const { label, id } = forms[formType][field];
           
           return (
-            <div className="form-field" key={field}>
-              <label htmlFor={field}>
-                {field.charAt(0).toUpperCase() + field.slice(1)}
-              </label>
-              <input
-                id={field}
-                type="text"
-                {...register(field as keyof FormData, getValidationRules(field))}
-              />
-              {fieldError && (
-                <div className="form-error">
-                  {fieldError.message}
-                </div>
-              )}
-            </div>
+            <InputWithError 
+              label={label}
+              key={id} 
+              type="text"
+              error={fieldError?.message} 
+              register={register(field as keyof FormData, getValidationRules(field))} 
+            />
           );
         })}
         

@@ -5,7 +5,7 @@ export const validationRules = {
       city: { required: "City is required" },
       zipCode: { 
         required: "ZIP code is required",
-        pattern: { value: /^\d{5}(-\d{4})?$/, message: "Invalid ZIP code format" }
+        pattern: { value: /^\d{3}\s?\d{2}$/, message: "Invalid ZIP code format" }
       },
       country: { required: "Country is required" }
     },
@@ -17,7 +17,7 @@ export const validationRules = {
       cardHolder: { required: "Card holder name is required" },
       expiryDate: { 
         required: "Expiry date is required",
-        pattern: { value: /^(0[1-9]|1[0-2])\/\d{2}$/, message: "Format must be MM/YY" }
+        pattern: { value: /^(0[1-9]|1[0-2])\s*\/\s*\d{2}(\d{2})?$/, message: "Format must be MM/YY" }
       },
       cvv: { 
         required: "CVV is required",

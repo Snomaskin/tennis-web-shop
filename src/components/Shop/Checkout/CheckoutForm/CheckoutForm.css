@@ -13,6 +13,10 @@
     text-align: left;
 }
 
+.checkout-form h2 {
+  margin-bottom: 1rem;
+}
+
 .form-field input[type="text"] {
     height: 35px;
     width: 100%;
@@ -31,7 +35,6 @@
     font-size: 15px;
     font-weight: 700;
     padding-top: 10px;
-
 }
 
 .checkout-form .checkout-btns {
@@ -43,4 +46,19 @@
 .form-error {
     color: red;
     padding-left: 5px;
+}
+
+.autofill-btn {
+  display: flex;
+  justify-self: right;
+  margin-right: 0.7rem;
+  padding: 5px 10px;
+  background-color: rgba(55, 160, 160, 0.575);
+  border: 1px solid rgb(164, 164, 164);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.autofill-btn:hover {
+  background-color: rgba(55, 160, 160, 0.758);
 }
