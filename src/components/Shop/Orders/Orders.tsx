@@ -2,6 +2,7 @@ import { useOrder } from "./OrderContext";
 import { useAuth } from "../../../auth/AuthContext";
 import { OrderType } from "../types";
 import { useState, useEffect } from "react";
+import { FadeInOut } from "../../utilComponents/FadeInOut";
 import "./Orders.css"
 
 
@@ -39,7 +40,7 @@ export const Orders = () => {
   };
 
   return (
-    <div className="orders-main">
+    <FadeInOut className="orders-main" duration={0.8}>
       <h1>Orders overview</h1>
       {!isLoggedIn && (
         <form className="order-lookup" onSubmit={handleOrderLookup}>
@@ -49,8 +50,8 @@ export const Orders = () => {
         </form>
       )}
       {orders && <OrdersList orders={orders}/>}
-      {errorMsg && <div className="error-message">{errorMsg}</div>}
-    </div>
+      {errorMsg && <FadeInOut className="error-message">{errorMsg}</FadeInOut>}
+    </FadeInOut>
   );
 };
 
@@ -93,7 +94,7 @@ const OrderDetails = ({ order, onReturn }: { order: OrderType, onReturn: () => v
   const { orderId, products, shippingDetails, paymentDetails } = order;
   const { name, address, zipCode, city, country } = shippingDetails;
   return (
-    <div className="order-details">
+    <FadeInOut className="order-details">
       <button onClick={onReturn} />
        <h1>Order details:</h1> 
        <h2 className="order-id">{orderId}</h2>
@@ -126,6 +127,6 @@ const OrderDetails = ({ order, onReturn }: { order: OrderType, onReturn: () => v
           );
         })}
       </ul>
-    </div>
+    </FadeInOut>
   )
 };

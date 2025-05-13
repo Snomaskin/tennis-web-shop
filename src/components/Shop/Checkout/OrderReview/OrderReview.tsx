@@ -2,6 +2,7 @@ import { CheckoutBtns } from "../CheckoutBtns/CheckoutBtns";
 import { useCheckout } from "../CheckoutContext";
 import { CheckoutSummary } from "../CheckoutSummary/CheckoutSummary";
 import { useOrder } from "../../Orders/OrderContext";
+import { FadeInOut } from "../../../utilComponents/FadeInOut";
 import "./OrderReview.css"
 
 
@@ -19,7 +20,7 @@ export const OrderReview = () => {
     };
 
     return (
-        <div className="review-wrapper">
+        <FadeInOut className="review-wrapper">
             <CheckoutSummary />
             
             <div className="shipping-payment-container">
@@ -45,6 +46,6 @@ export const OrderReview = () => {
                 <CheckoutBtns onSubmit={handleSubmit} />
 
             </div>
-        </div>
+        </FadeInOut>
     );
 };

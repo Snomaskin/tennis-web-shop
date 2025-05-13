@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import { useAuth, type SignupFields } from "../AuthContext";
 import { validationRules } from "../config/validationRules"
 import { InputWithError } from "../../components/utilComponents/InputWithError/InputWithError";
+import { FadeInOut } from "../../components/utilComponents/FadeInOut";
 import { useState, useEffect } from "react";
 import { doc, setDoc } from "firebase/firestore";
-import { firestore } from "../../config/firebase"; // update path as needed
+import { firestore } from "../../config/firebase"; 
 
 
 export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
@@ -30,7 +31,7 @@ useEffect(() => {
   writeTest();
 }, []);
   return (
-    <div className="auth-form-wrapper">
+    <FadeInOut className="auth-form-wrapper">
       <button className="return-btn" onClick={onReturn}>{"<"}</button>
       <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Sign up</h2>
@@ -72,6 +73,6 @@ useEffect(() => {
           )}
         </div>
       </form>
-    </div>
+    </FadeInOut>
   )
 }

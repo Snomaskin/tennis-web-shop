@@ -1,3 +1,4 @@
+import { FadeInOut } from "../utilComponents/FadeInOut";
 import "./TextCard.css";
 
 
@@ -22,7 +23,7 @@ export interface TextPageType {
 
 export const TextPage = ({ outerText, innerText }: TextPageType) => {
   return (
-    <div className="text-page-wrapper">
+    <FadeInOut className="text-page-wrapper" duration={0.8}>
     <div className="text-card">
       {outerText?.title && <h1>{outerText.title}</h1>}
       {outerText && <div className="outer-text">
@@ -43,6 +44,6 @@ export const TextPage = ({ outerText, innerText }: TextPageType) => {
       </div>
       }
     </div>
-    </div>
+    </FadeInOut>
   );
 };

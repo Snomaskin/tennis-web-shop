@@ -5,6 +5,7 @@ import { showModal, hideModal } from "../utils/setModalVisibility";
 import { useState, useEffect } from "react"
 import classNames from "classnames";
 import Modal from "react-modal";
+import { FadeInOut } from "../components/utilComponents/FadeInOut";
 import "./authModalStyles.css"
 
 
@@ -43,7 +44,7 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
     >
       <div className='auth-popup-close' onClick={() => closePopUp()}>X</div>
       {!selectedFrom && (
-        <div className="auth-form-wrapper">
+        <FadeInOut className="auth-form-wrapper">
           <div className="auth-form">
             <h3 className="auth-ladning-msg">
               New user? <p/>
@@ -55,8 +56,9 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
                   Log in
                 </button>
             </h3>
-        </div>
-        </div>
+          </div>
+        </FadeInOut>
+
       )}
       {selectedFrom === 'login' ? <LoginModal onReturn={() => setSelectedForm(null)} /> : null}
       {selectedFrom === 'signup' ? <SignupModal onReturn={() => setSelectedForm(null)} /> : null}

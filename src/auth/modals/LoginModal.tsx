@@ -3,6 +3,7 @@ import { useAuth, type LoginFields } from "../AuthContext";
 import { validationRules } from "../config/validationRules";
 import { InputWithError } from "../../components/utilComponents/InputWithError/InputWithError";
 import { useState } from "react";
+import { FadeInOut } from "../../components/utilComponents/FadeInOut";
 
 
 export const LoginModal = ({ onReturn }: { onReturn: () => void }) => {
@@ -21,7 +22,7 @@ export const LoginModal = ({ onReturn }: { onReturn: () => void }) => {
   };
 
   return (
-    <div className="auth-form-wrapper">
+    <FadeInOut className="auth-form-wrapper">
       <button className="return-btn" onClick={onReturn}>{"<"}</button>
       <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Log in</h2>
@@ -49,6 +50,6 @@ export const LoginModal = ({ onReturn }: { onReturn: () => void }) => {
           )}
         </div>
       </form>
-    </div>
+    </FadeInOut>
   );
 }

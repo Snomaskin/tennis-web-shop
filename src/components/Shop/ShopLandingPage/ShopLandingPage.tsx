@@ -1,10 +1,11 @@
 import { shopItems } from "../../../config/site-navigation";
 import { Link } from "react-router-dom";
+import { FadeInOut } from "../../utilComponents/FadeInOut";
 import "./ShopLandingPage.css";
 
 
 export const ShopLandingPage = () => (
-  <div className="shop-landing-container">
+  <FadeInOut className="shop-landing-container" duration={0.8}>
     <div className="shop-routes">
       {shopItems.map((item) => (
         <Link className="shop-route"
@@ -15,5 +16,5 @@ export const ShopLandingPage = () => (
         </Link>
       ))}
     </div>
-  </div>
+  </FadeInOut>
 );

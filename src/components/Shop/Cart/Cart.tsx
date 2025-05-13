@@ -2,9 +2,11 @@ import { useCart } from "./CartContext";
 import { CartItem } from "../productCards/CartItem";
 import cartIcon from "../../../assets/cart.png";
 import trashIcon from "../../../assets/trash.png";
+import { preloadImages } from "../../../utils/preloadImages";
 import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
-import { preloadImages } from "../../../utils/preloadImages";
+import { AnimatePresence } from "framer-motion";
+import { FadeInOut } from "../../utilComponents/FadeInOut";
 import "./Cart.css";
 
 
@@ -62,26 +64,27 @@ export const Cart = () => {
           <img className="cart-icon" src={cartIcon} alt="Cart" />
           <div className="cart-counter">{totalCart}</div>
         </div>
-        
-        {cart.length > 0 && isSelected === true &&
-          <div className="cart">
-              <ul className="cart-items">
-                {cart.map((item) => (
-                  <li key={item.id}>
-                    <CartItem 
-                      cartItem={item}
-                      removeFromCart={removeFromCart}
-                    />
-                  </li>
-                ))}
-              </ul>
-              <CartBtns 
-                clearCart={clearCart} 
-                checkoutCart={checkoutCart} 
-                onCheckout={{setIsClicked, setIsSelected}} 
-              />
-          </div>
-        }
+        <AnimatePresence>
+          {cart.length > 0 && isSelected === true &&
+              <FadeInOut className="cart">
+                <ul className="cart-items">
+                  {cart.map((item) => (
+                    <li key={item.id}>
+                      <CartItem 
+                        cartItem={item}
+                        removeFromCart={removeFromCart}
+                      />
+                    </li>
+                  ))}
+                </ul>
+                <CartBtns 
+                  clearCart={clearCart} 
+                  checkoutCart={checkoutCart} 
+                  onCheckout={{setIsClicked, setIsSelected}} 
+                />
+            </FadeInOut>
+          }
+        </AnimatePresence>
     </div>
   );
 };
@@ -99,8 +102,10 @@ const CartBtns = ({ clearCart, checkoutCart, onCheckout }:
       </button>
       <button onClick={() => {
         checkoutCart(); 
-        onCheckout.setIsClicked(false); 
-        onCheckout.setIsSelected(false)
+        setTimeout(() => {
+          onCheckout.setIsClicked(false); 
+          onCheckout.setIsSelected(false);
+        }, 200);
        }} className="checkout-btn"
       >
         Checkout

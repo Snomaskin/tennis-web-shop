@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { NavItem } from "../../config/site-navigation";
 import { Link } from "react-router-dom";
 import { Cart } from "../Shop/Cart/Cart";
@@ -14,33 +14,64 @@ import "./Navbar.css";
 
 
 export const Navbar = () => {
-  const [hoveredid, setHoveredid] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { isSearching, setIsSearching } = useSearch();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { isLoggedIn, logout } = useAuth();
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleNavClick = () => {
       setIsSearching(false);
   };
 
+  const handleMouseEnter = (item: NavItem) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+
+    setHoveredId(item.id);
+    setIsMenuVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsMenuVisible(false);
+
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredId(null);
+    }, 300); 
+  };
+
   return (
     <nav className="navbar">
-      {navItems.map((item) => (
-        <div 
-          className="nav-container" 
-          key={item.id}
-          onMouseEnter={() => setHoveredid(item.id)}
-          onMouseLeave={() => setHoveredid(null)}
-        >
-          <Link 
-            className="nav" 
-            to={item.path} 
-            onClick={handleNavClick}>
-              {item.label}
-          </Link>
-          {hoveredid === item.id && <HoveredMenu menu={item} onItemClick={handleNavClick} />}
-        </div>
-      ))}
+      {navItems.map((item) => {
+        const isHovered = hoveredId === item.id;
+        return (
+          <div 
+            className="nav-container" 
+            key={item.id}
+            onMouseEnter={() => handleMouseEnter(item)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Link 
+              className="nav" 
+              to={item.path} 
+              onClick={handleNavClick}>
+                {item.label}
+            </Link>
+
+              {isHovered && (
+                <HoveredMenu 
+                  menu={item} 
+                  onItemClick={handleNavClick}
+                  isVisible={isMenuVisible}
+                />
+              )}
+
+          </div>
+       )
+      })}
       <SearchToggle isSearching={isSearching} setIsSearching={setIsSearching} />
       <div className="navbar-right">
         <LoginNav 
@@ -63,9 +94,15 @@ export const Navbar = () => {
 };
 
 const HoveredMenu = (
-  { menu, onItemClick }: 
+  { menu, 
+    onItemClick, 
+    isVisible 
+  }: 
   { menu: NavItem; 
-    onItemClick: () => void; }) => {
+    onItemClick: () => void;
+    isVisible: boolean;
+  }) => {
+    
     const [activeItem, setActiveItem] = useState<string | null>(null);
 
     const handleClick = (id: string) => {
@@ -74,7 +111,7 @@ const HoveredMenu = (
     };
 
     return (
-      <div className="dropdown">
+      <div className={classNames("dropdown", { "visible": isVisible })}>
         {menu.menuItems?.map((item) => (
           <Link
             className={classNames('list-item', {
@@ -91,7 +128,7 @@ const HoveredMenu = (
             {item.label ? <label htmlFor={item.id}>{item.label}</label> : null}
           </Link>
         ))}
-      </div>
+      </div>  
     );
 };
 

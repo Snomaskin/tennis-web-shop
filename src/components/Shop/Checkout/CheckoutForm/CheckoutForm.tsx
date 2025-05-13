@@ -4,6 +4,7 @@ import { CheckoutBtns } from "../CheckoutBtns/CheckoutBtns";
 import { validationRules } from "./validationRules";
 import { ShippingInfo, PaymentInfo } from "../../types";
 import { InputWithError } from "../../../utilComponents/InputWithError/InputWithError";
+import { FadeInOut } from "../../../utilComponents/FadeInOut";
 import { FormTypes, FormFieldKey, autofillPayment, autofillShipping, forms } from "./formTypes";
 import "./CheckoutForm.css";
 
@@ -37,7 +38,7 @@ export const CheckoutForm = ({ formType }: { formType: FormTypes }) => {
   };
 
   return (
-    <div className="form-wrapper">
+    <FadeInOut className="form-wrapper" duration={0.6}>
       <form className="checkout-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>{formTitle}</h2>
         <button type="button" className="autofill-btn" onClick={() => reset(formType === "shipping" ? autofillShipping : autofillPayment)}>
@@ -61,6 +62,6 @@ export const CheckoutForm = ({ formType }: { formType: FormTypes }) => {
         
         <CheckoutBtns onSubmit={handleSubmit(onSubmit)} />
       </form>
-    </div>
+    </FadeInOut>
   );
 };
