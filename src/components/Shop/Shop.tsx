@@ -9,46 +9,62 @@ import { RenderProducts } from "./RenderProducts/RenderProducts.tsx";
 import { preloadImages } from "../../utils/preloadImages.ts";
 import { PopUp } from "../utilComponents/PopUp/PopUp.tsx";
 import { ShopLandingPage } from "./ShopLandingPage/ShopLandingPage.tsx";
+import { FadeInOut } from "../utilComponents/FadeInOut.tsx";
+import { SortProducts } from "./SortProducts/SortProducts.tsx";
 import "./Shop.css"
 
 
 export const Shop = () => {
-    const { category } = useParams<{category?: string}>();
-    const { displayedProducts, setDisplayedProducts } = useShop();
-    const { addToCart } = useCart()
-    const title = category ? category.charAt(0).toUpperCase() + category.slice(1) : '';
-    const { promoHeader, promoText } = promoTexts
+  const { category } = useParams<{category?: string}>();
+  const { displayedProducts, setDisplayedProducts } = useShop();
+  const { addToCart } = useCart();
+  const title = category ? category.charAt(0).toUpperCase() + category.slice(1) : '';
+  const { promoHeader, promoText } = promoTexts;
 
-    useEffect(() => {
-      if (category) {
-        const productsInCategory = applyPromosToProducts(products[category], promotions);
-        const imgUrls = productsInCategory.map(item => item.imageUrl);
-        
-        preloadImages(imgUrls)
-        .then(() => setDisplayedProducts(productsInCategory)) 
-        .catch((error) => console.log('Failed to preload menu images: ', error))
-      };
-      return () => {
-        setDisplayedProducts([]);
-      };
-    }, [category, setDisplayedProducts]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (category) {
+      setIsLoading(true);
 
-    const promoProductNodes = getPromosFromAll(products, specialPromos)
-      .map(item => <ProductCard key={item.id} product={item} onAddToCart={addToCart} />);
+      const productsInCategory = applyPromosToProducts(products[category], promotions);
+      const imgUrls = productsInCategory.map(item => item.imageUrl);
+      // const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 
-    return (
-      displayedProducts.length > 0 
-      ? <RenderShop 
-          displayedProducts={displayedProducts}
-          title={title}
-          onAddToCart={addToCart}
-          promotions={promoProductNodes}
-          promoHeader={promoHeader}
-          promoText={promoText}
-        />
-      : <ShopLandingPage />
-    );
+      preloadImages(imgUrls)
+      .then(() => setDisplayedProducts(productsInCategory)) 
+      .catch((error) => console.log('Failed to preload menu images: ', error))
+      .finally(() => setIsLoading(false));
+    };
+    return () => {
+      setDisplayedProducts([]);
+    };
+  }, [category, setDisplayedProducts]);
+
+  const promoProductNodes = getPromosFromAll(products, specialPromos)
+    .map(item => <ProductCard key={item.id} product={item} onAddToCart={addToCart} />);
+
+  return (
+    <>
+    <SortProducts title={title}/>
+    {isLoading ? (
+      <FadeInOut className="shop-loading-overlay">
+        <div className="spinner" />
+      </FadeInOut>
+    ) : displayedProducts.length > 0 ? (
+      <RenderShop 
+        displayedProducts={displayedProducts}
+        title={title}
+        onAddToCart={addToCart}
+        promotions={promoProductNodes}
+        promoHeader={promoHeader}
+        promoText={promoText}
+      />
+    ) : ( 
+      <ShopLandingPage />
+    )}
+    </>
+  );
 };
 
 interface RenderShopProps {
