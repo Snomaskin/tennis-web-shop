@@ -45,7 +45,7 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   }, []);
 
   return (
-    <div className="card-wrapper">
+
       <article 
         ref={productRef}
         className={classNames('product-card', {
@@ -74,7 +74,7 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
           Add to Cart
         </button>
       </article>
-    </div>
+
   );
 };
 
