@@ -1,18 +1,17 @@
 import { useParams } from "react-router-dom";
 import { ReactNode, useEffect, useState } from "react";
-import { Product, products, specialPromos, promotions, promoTexts } from "../../data/products.ts"
+import { Product, products, specialPromos, promotions, promoTexts, PromoProduct } from "../../data/products.ts"
 import { getPromosFromAll, applyPromosToProducts } from "../../utils/promoUtils.ts";
 import { useShop } from "./ShopContext.tsx";
 import { useCart } from "./Cart/CartContext.tsx";
 import { ProductCard } from "./productCards/ProductCard.tsx";
 import { RenderProducts } from "./RenderProducts/RenderProducts.tsx";
 import { preloadImages } from "../../utils/preloadImages.ts";
-import { PopUp } from "../utilComponents/PopUp/PopUp.tsx";
 import { ShopLandingPage } from "./ShopLandingPage/ShopLandingPage.tsx";
 import { FadeInOut } from "../utilComponents/FadeInOut.tsx";
 import { SortProducts } from "./SortProducts/SortProducts.tsx";
-import "./Shop.css"
-
+import { StandardModal } from "../utilComponents/StandardModal/StandardModal.tsx";
+import "../utilComponents/PopUp/PopUp.css"
 
 export const Shop = () => {
   const { category } = useParams<{category?: string}>();
@@ -89,8 +88,28 @@ const RenderShop = ({ displayedProducts, title, onAddToCart, promotions, promoHe
   
   return (
     <>
-      {promoIsShown && promotions?.length ? <PopUp promotions={promotions} header={promoHeader} text={promoText}/> : null}
+      { promotions?.length ? <PromoPopup promotions={promotions} header={promoHeader} text={promoText}/> : null}
       <RenderProducts products={displayedProducts} title={title} onAddToCart={onAddToCart} />
     </>
-);
+  );
+}
+
+const PromoPopup = ({ header, text, promotions }: 
+  { header: string | undefined, text: string | undefined, promotions: ReactNode[] }) => {
+
+  return (
+    <StandardModal>
+      <div className="promo-wrapper">
+        <div className='promo-header'>
+          {header && <h2 className='promo-header-text'>{header}</h2>}
+        </div>
+        {text && <p>{text}</p>}
+        {promotions && (   
+          <div className="promo-products">
+            {promotions}
+          </div>
+        )}
+      </div>
+      </StandardModal>
+  )
 }

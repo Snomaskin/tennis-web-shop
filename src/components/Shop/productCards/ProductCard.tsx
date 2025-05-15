@@ -1,10 +1,10 @@
 import { Product, PromoProduct } from "../../../data/products";
-import "./ProductCard.css"
 import { useState, useRef, useEffect } from 'react';
 import classNames from "classnames";
+import "./ProductCard.css"
 
 
-interface ProductCardProps {
+export interface ProductCardProps {
     product: Product | PromoProduct,
     onAddToCart: (item: Product) => void;
 };
@@ -16,7 +16,7 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
 
   const isPromo = (product: Product): product is PromoProduct => {
     return 'originalPrice' in product
-  }
+  };
 
   const originalPrice = isPromo(product) ? product.originalPrice : null;
 
@@ -45,7 +45,6 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   }, []);
 
   return (
-
       <article 
         ref={productRef}
         className={classNames('product-card', {
@@ -74,7 +73,6 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
           Add to Cart
         </button>
       </article>
-
   );
 };
 

@@ -11,7 +11,7 @@ function hideModal(
   setIsOpen: SetBoolean, 
   setIsVisible: SetBoolean,  
   animationDelay: number,
-  closeDelay: number,
+  closeDelay: number = 0,
   onClose?: () => void,
   ) {
     setTimeout(() => {

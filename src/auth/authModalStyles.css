@@ -1,76 +1,39 @@
-.auth-popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.auth-popup-overlay.visible {
-  opacity: 1;
-}
-
-.auth-popup-content {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
-  transform: translate(-50%, -50%);
-  background-color: var(--tennis-gray);
-  max-width: fit-content;
-  padding: 20px;
-  border-radius: 8px;
-  outline: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  min-height: 540px;
-  min-width: 440px;
-}
-
-.auth-popup-content.visible {
-  opacity: 1;
-}
-
 .auth-form-wrapper {
   display: flex;
   margin-bottom: auto;
-  padding-bottom: 40px;
-  max-width: 330px;
-  min-width: 330px;
-  min-height: 380px;
-
+  padding: 50px 30px;
+  min-width: 350px;
   justify-content: center;
 }
 
 .auth-form {
   background-color: var(--tennis-gray);
   display: flex;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 25px 50px;
+  padding: 25px 30px;
   flex-direction: column;
   text-align: left;
+  min-height: 450px;
+  min-width: 250px;
 }
 
-.auth-ladning-msg {
-  background-color: rgba(255, 255, 255, 0.762);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.auth-form h2 {
+  align-self: flex-start;
+  margin: 1rem;
+}
+
+.auth-landing-msg {
   padding: 2rem;
   margin-bottom: 2rem;
   font-weight: 450;
   white-space: nowrap;
   text-align: center;
 } 
+.auth-form .input-group {
+  min-width: 200px;
+}
 
 .return-btn {
   background-color: rgba(152, 208, 83, 0.588);
@@ -90,13 +53,14 @@
 .auth-form-footer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: right;
+  align-items: flex-end;
+  width: 100%;
 }
-
+.auth-form-footer, .login-btn .register-btn {
+  margin-right: 3rem;
+}
 .login-btn, .register-btn {
-  align-self: flex-end;
-
   margin-top: 8px;
   padding: 15px;
   min-width: 80px;
@@ -141,27 +105,10 @@
   padding: 1rem;
   margin-bottom: 1rem;
   font-weight: 450;
-  width: 100%;
+  min-width: 210px;
   max-width: 100%;
   word-break: break-word;
   max-height: 150px;
   overflow-y: auto;
   text-align: center;
-}
-
-.auth-popup-close {
-  margin-bottom: auto;
-  align-self: flex-end;
-  justify-self: flex-end;
-  color: #5a5959;
-  background-color: #d7d7d7;
-  padding: 7px 12px;
-  border: none;
-  border-radius: 100%;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.auth-popup-close:hover {
-  color: #333;
-  background-color: #bebfbe;
 }
