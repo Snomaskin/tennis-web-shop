@@ -1,6 +1,7 @@
 import { Product, PromoProduct } from "../../../data/products";
 import { useState, useRef, useEffect } from 'react';
 import classNames from "classnames";
+import { ExpandedProduct } from "./ExpandedProduct";
 import "./ProductCard.css"
 
 
@@ -13,6 +14,7 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   const { name, price, imageUrl } = product;
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const productRef = useRef<HTMLDivElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const isPromo = (product: Product): product is PromoProduct => {
     return 'originalPrice' in product
@@ -20,7 +22,9 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
 
   const originalPrice = isPromo(product) ? product.originalPrice : null;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
     calculateCartPosition(productRef);
     setIsAnimating(true);
     
@@ -28,6 +32,10 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       onAddToCart(product);
       setIsAnimating(false);
     }, 700); 
+  };
+
+  const handleExpandedAddTocart = () => {
+    onAddToCart(product);
   };
 
   useEffect(() => {
@@ -45,34 +53,45 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   }, []);
 
   return (
-      <article 
-        ref={productRef}
-        className={classNames('product-card', {
-          'animate-to-cart': isAnimating
-        })}
+    <article 
+      ref={productRef}
+      className={classNames('product-card', {
+        'animate-to-cart': isAnimating
+      })}
+      onClick={() => setIsExpanded(true)}
+    >
+      {isExpanded && 
+        <ExpandedProduct 
+          name={name} 
+          price={price} 
+          originalPrice={originalPrice ?? null}
+          imageUrl={imageUrl}
+          onAddToCart={handleExpandedAddTocart}
+          onClose={() => setIsExpanded(false)}
+        />
+          }
+      <div className="image-wrapper">
+        <img className="product-image" src={imageUrl} alt={name} />
+      </div>     
+      <h3 className="product-name">{name}</h3>
+      <p className="product-price">
+        {originalPrice ? (
+          <>
+            <span className="original-price">${originalPrice}</span>{' '}
+            <span className="discount-price">${price}</span>
+          </>
+        ) : (
+          <span>${price}</span>
+        )}
+      </p>
+      <button 
+        onClick={(e) => handleAddToCart(e)} 
+        className="add-to-cart-btn"
+        disabled={isAnimating}
       >
-        <div className="image-wrapper">
-          <img className="product-image" src={imageUrl} alt={name} />
-        </div>     
-        <h3 className="product-name">{name}</h3>
-        <p className="product-price">
-          {originalPrice ? (
-            <>
-              <span className="original-price">${originalPrice}</span>{' '}
-              <span className="discount-price">${price}</span>
-            </>
-          ) : (
-            <span>${price}</span>
-          )}
-        </p>
-        <button 
-          onClick={handleAddToCart} 
-          className="add-to-cart-btn"
-          disabled={isAnimating}
-        >
-          Add to Cart
-        </button>
-      </article>
+        Add to Cart
+      </button>
+    </article>
   );
 };
 
