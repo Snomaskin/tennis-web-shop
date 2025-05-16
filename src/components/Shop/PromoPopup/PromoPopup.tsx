@@ -1,4 +1,5 @@
 import { StandardModal } from "../../utilComponents/StandardModal/StandardModal";
+import "./PromoPopup.css"
 
 
 interface PromoPopupProps {

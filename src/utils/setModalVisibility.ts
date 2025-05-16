@@ -10,8 +10,8 @@ function showModal(setIsOpen: SetBoolean, setIsVisible: SetBoolean, closeDelay: 
 function hideModal(
   setIsOpen: SetBoolean, 
   setIsVisible: SetBoolean,  
-  animationDelay: number,
-  closeDelay: number = 0,
+  animationDelay: number = 0,
+  closeDelay: number,
   onClose?: () => void,
   ) {
     setTimeout(() => {
