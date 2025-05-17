@@ -1,5 +1,6 @@
 .main-landing-container {
   display: flex;
+  height: calc(100vh - 60px);
   background-image: linear-gradient(to top, 
   rgba(0, 128, 0, 0.37) 0, var(--tennis-gray) 20rem);
 }
