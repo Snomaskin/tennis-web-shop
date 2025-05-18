@@ -21,14 +21,18 @@
   .promo-wrapper {
     padding: 0;
   }
+  .promo-header {
+    padding-bottom: 0; 
+    margin-right: 0;
+  }
   .promo-products {
-    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .promo-products {
-    flex-direction: column;
-    align-items: center;
+    gap: 5px;
   }
 }
