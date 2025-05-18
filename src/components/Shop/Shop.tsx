@@ -9,7 +9,6 @@ import { RenderProducts } from "./RenderProducts/RenderProducts.tsx";
 import { preloadImages } from "../../utils/preloadImages.ts";
 import { ShopLandingPage } from "./ShopLandingPage/ShopLandingPage.tsx";
 import { FadeInOut } from "../utilComponents/FadeInOut.tsx";
-import { SortProducts } from "./SortProducts/SortProducts.tsx";
 import { PromoPopup } from "./PromoPopup/PromoPopup.tsx";
 
 
@@ -45,7 +44,6 @@ export const Shop = () => {
 
   return (
     <>
-    <SortProducts title={title}/>
     {isLoading ? (
       <FadeInOut className="shop-loading-overlay">
         <div className="spinner" />

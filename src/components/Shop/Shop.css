@@ -44,13 +44,20 @@
     row-gap: 15px;
     column-gap: 1px;
   }
+  .products-container .text-page-wrapper {
+    margin-left: 6rem;
+  }
 }
 
 @media (max-width: 500px) {
   .products-container {
-    margin-left: 170px;
+    justify-content: center;
+    margin-left: 80px;
     width: calc(100% - 160px);
     grid-template-columns: repeat(auto-fit, 180px);
     padding: 1rem 1.5rem;
+  }
+  .products-container .text-page-wrapper {
+    margin-left: 2rem;
   }
 }

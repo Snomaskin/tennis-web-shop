@@ -20,6 +20,7 @@
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 250px;
+    min-width: 240px;
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
@@ -29,4 +30,24 @@
 .shipping-wrapper,
 .payment-wrapper {
     padding-right: 10px;
+}
+
+@media (max-width: 450px) {
+  .review-wrapper {
+    grid-template-columns: auto; 
+  }
+  .review-wrapper .checkout-wrapper {
+    justify-self: center;
+    padding: 0;
+  }
+  .shipping-payment-container {
+    padding-top: 0;
+  }
+  .info-card {
+    justify-self: center;
+  }
+  .shipping-payment-container .checkout-btns {
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
 }

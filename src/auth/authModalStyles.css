@@ -112,3 +112,9 @@
   overflow-y: auto;
   text-align: center;
 }
+
+@media (max-width: 500px) {
+  .modal-close-btn {
+    margin: 5px 30px;
+  }
+}

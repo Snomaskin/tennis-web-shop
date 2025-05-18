@@ -1,16 +1,19 @@
 .main-landing-container {
   display: flex;
-  height: calc(100vh - 60px);
+  height: 100%;
+  width: 100%;
   background-image: linear-gradient(to top, 
   rgba(0, 128, 0, 0.37) 0, var(--tennis-gray) 20rem);
 }
 
 .main-landing-container .shop-routes {
   flex-direction: column;
+  margin-top: 0; 
+}
+
+.main-landing-container .shop-route {
+  max-width: 160px;
   min-width: 100px;
-  max-width: 150px;
-  margin-top: 0;
-  
 }
 
 .main-landing-container .shop-landing-container {
@@ -20,7 +23,7 @@
 .main-landing-container .text-page-wrapper {
   max-width: 500px;
   padding: 1rem;
-
+  margin-top: 0;
 }
 
 .main-landing-app-container {
@@ -28,11 +31,34 @@
   flex: 1 1 400px;
   overflow: hidden;
   padding: 2rem 1rem;
-
-  height: calc(100vh - 130px)
 }
 
 .main-landing-app-container iframe {
   border-radius: 1rem; 
   max-height: 650px;
+}
+
+@media (max-width: 768px){
+  .main-landing-container .text-page-wrapper {
+    align-self: center;
+  }
+  .main-landing-container {
+    flex-direction: column;
+    height: auto;
+    overflow-y: scroll;
+  }
+  .main-landing-container .shop-routes {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: -2rem;
+  }
+  .main-landing-app-container {
+    padding-bottom: 17rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .text-page-wrapper {
+    margin-top: 0;
+  }
 }

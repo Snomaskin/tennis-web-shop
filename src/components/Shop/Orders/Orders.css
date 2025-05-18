@@ -196,3 +196,11 @@
   }
 
 }
+@media (max-width: 768px) {
+  .order-lookup {
+    flex-direction: column;
+  }
+  .order-lookup span {
+    justify-content: center;
+  }
+}

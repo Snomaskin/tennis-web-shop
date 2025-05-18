@@ -1,6 +1,8 @@
 .cart-nav {
     height: 60px;
     position: relative;
+    min-width: auto;
+    flex-shrink: 1;
 }
 
 .cart-nav::after {
@@ -112,4 +114,21 @@
     .cart {
         max-width: 300px;
     }
+
+    .cart-nav {
+
+
+
+    }
+
+    .cart-icon {
+      transform: scale(0.4)
+    }
+
+    .cart-counter {
+      padding: 2px 4px;
+      background-color: #f0f0f0;
+      border-radius: 6px;
+      font-size: 12px;
+  }
 }
