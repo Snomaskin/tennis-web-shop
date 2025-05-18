@@ -23,14 +23,13 @@ const aboutText: TextPageType = {
 const homeText: TextPageType = {
     outerText: {
         title: 'Welcome.',
-        p1: `- Make predictions with the prediction app `,
+        p1: `- Make tennis predictions with the prediction app `,
         p2: `- Try out the shop features`,
     },
     innerText: {
         title: 'News:',
-        p1: `Checkout function is now live!`,
-        p2: `Add some items to the cart and continue to checkout through the cart icon in the top right corner.`,
-        p3: `Please don't enter sensitive information. It's just for testing.`
+        p1: `Backend with order- and user management is now live! Try placing an order and retrieving it.`,
+        p2: 'Orders can be retrieved both as a member and guest user.'
     }
 }
 const texts = { 
