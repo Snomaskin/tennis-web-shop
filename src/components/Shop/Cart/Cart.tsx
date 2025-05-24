@@ -33,6 +33,11 @@ export const Cart = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const imageUrls = cart.map(item => item.imageUrl);
+    preloadImages(imageUrls);
+  }, [cart]);
+
   const handleMouseLeave = () => {
       !isClicked && setIsSelected(false);
   }
