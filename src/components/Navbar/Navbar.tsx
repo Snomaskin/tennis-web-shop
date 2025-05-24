@@ -23,6 +23,7 @@ export const Navbar = () => {
 
   const handleNavClick = () => {
       setIsSearching(false);
+      setIsMenuVisible(false);
   };
 
   const handleMouseEnter = (item: NavItem) => {
