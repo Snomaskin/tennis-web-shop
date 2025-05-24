@@ -7,11 +7,13 @@ import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
 import { AnimatePresence } from "framer-motion";
 import { FadeInOut } from "../../utilComponents/FadeInOut";
+import { useSearch } from "../../Search/SearchContext";
 import "./Cart.css";
 
 
 export const Cart = () => {
   const { cart, removeFromCart, clearCart, checkoutCart } = useCart();
+  const { setIsSearching } = useSearch();
   const totalCart = cart.length > 0 ? cart.reduce((prev, item) => prev + item.quantity, 0) : 0;
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -85,7 +87,7 @@ export const Cart = () => {
                 <CartBtns 
                   clearCart={clearCart} 
                   checkoutCart={checkoutCart} 
-                  onCheckout={{setIsClicked, setIsSelected}} 
+                  onCheckout={{setIsClicked, setIsSelected, setIsSearching}} 
                 />
             </FadeInOut>
           }
@@ -98,7 +100,8 @@ const CartBtns = ({ clearCart, checkoutCart, onCheckout }:
   { clearCart: () => void, checkoutCart: () => void, 
     onCheckout: {
       setIsClicked: React.Dispatch<React.SetStateAction<boolean>>,
-      setIsSelected: React.Dispatch<React.SetStateAction<boolean>>
+      setIsSelected: React.Dispatch<React.SetStateAction<boolean>>,
+      setIsSearching: React.Dispatch<React.SetStateAction<boolean>>,
     }}) => (
 
     <div className="cart-footer">
@@ -110,6 +113,7 @@ const CartBtns = ({ clearCart, checkoutCart, onCheckout }:
         setTimeout(() => {
           onCheckout.setIsClicked(false); 
           onCheckout.setIsSelected(false);
+          onCheckout.setIsSearching(false);
         }, 200);
        }} className="checkout-btn"
       >
