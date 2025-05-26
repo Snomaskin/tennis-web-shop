@@ -1,5 +1,5 @@
-import { SignupModal } from "./modals/SignupModal";
-import { LoginModal } from "./modals/LoginModal";
+import { SignupForm } from "./modals/SignupForm";
+import { LoginForm } from "./modals/LoginForm";
 import { useAuth } from "./AuthContext";
 import { useState } from "react"
 import { StandardModal } from "../components/utilComponents/StandardModal/StandardModal";
@@ -33,8 +33,8 @@ export const AuthModalManager = ({ onClose }: { onClose: () => void }) => {
           </div>
         </FadeInOut>
       )}
-      {selectedFrom === 'login' ? <LoginModal onReturn={() => setSelectedForm(null)} /> : null}
-      {selectedFrom === 'signup' ? <SignupModal onReturn={() => setSelectedForm(null)} /> : null}
+      {selectedFrom === 'login' ? <LoginForm onReturn={() => setSelectedForm(null)} /> : null}
+      {selectedFrom === 'signup' ? <SignupForm onReturn={() => setSelectedForm(null)} /> : null}
     </StandardModal>
 
   );

@@ -102,4 +102,4 @@ const useAuth = () => {
 
 
 export { AuthProvider, useAuth };
-export type { FullUser, PublicUser, LoginFields, SignupFields };
+export type { FullUser, PublicUser, UserProfile, LoginFields, SignupFields };

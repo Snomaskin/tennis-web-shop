@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FadeInOut } from "../../components/utilComponents/FadeInOut";
 
 
-export const LoginModal = ({ onReturn }: { onReturn: () => void }) => {
+export const LoginForm = ({ onReturn }: { onReturn: () => void }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFields>();
   const { login } = useAuth();
   const [loginMessage, setLoginMessage] = useState<string | null>(null);

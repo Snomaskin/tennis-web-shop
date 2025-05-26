@@ -8,7 +8,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../../config/firebase"; 
 
 
-export const SignupModal = ( {onReturn}: { onReturn: () => void } ) => {
+export const SignupForm = ( {onReturn}: { onReturn: () => void } ) => {
   const { register, handleSubmit, formState: { errors } } = useForm<SignupFields>();
   const { signup } = useAuth();
   const [signupMessage, setSigupMessage] = useState<string | null>(null);
