@@ -1,42 +1,57 @@
 import { firestore } from "../../../config/firebase";
-import { collection, query, orderBy, startAt, endAt, getDocs, getDoc, doc, deleteDoc } from "firebase/firestore";
+import {
+  collection, doc, getDoc, getDocs, deleteDoc, query, startAt, endAt, orderBy, QueryDocumentSnapshot, DocumentData
+} from "firebase/firestore";
+import { UserProfile } from "../../../auth/AuthContext";
 
 
-const usersRef = collection(firestore, "users");
-
-function getUsersRef(id: string) {
-  return doc(firestore, "users", id);
+const userFirestoreConverter = {
+  toFirestore(user: UserProfile): DocumentData {
+    return {
+      name: user.name,
+      email: user.email,
+      favFood: user.favFood
+    };
+  },
+  fromFirestore(snapshot: QueryDocumentSnapshot): UserProfile {
+    const data = snapshot.data();
+    return {
+      userId: snapshot.id,
+      name: data.name,
+      email: data.email,
+      favFood: data.favFood
+    };
+  }
 };
 
-async function listUsers() {
+const usersRef = collection(firestore, "users").withConverter(userFirestoreConverter);
+
+function getUsersRef(id: string) {
+  return doc(firestore, "users", id).withConverter(userFirestoreConverter);
+};
+
+async function listUsers(): Promise<UserProfile[]> {
   const snapshot = await getDocs(usersRef);
-  return snapshot.docs.map(doc => ({
-    uid: doc.id,
-    ...doc.data()
-  }));
+  return snapshot.docs.map(doc => doc.data());
 };
 
 async function findUser(identifier: string) {
   const snapshot = await getDoc(getUsersRef(identifier));
-
-  return {id: snapshot.id, ...snapshot.data()};
+  if (!snapshot.exists()) return [];
+  return [snapshot.data()];
 };
 
-async function findUsers(identifier: string) {
+async function findUsers(identifier: string): Promise<UserProfile[]> {
   const q = query(
     usersRef, 
     orderBy("name"), 
     startAt(identifier), 
     endAt(identifier + "uf8ff"));
   const snapshot = await getDocs(q);
-
-  return  snapshot.docs.map(doc => ({
-    uid: doc.id,
-    ...doc.data()
-  }));
+  return  snapshot.docs.map(doc => doc.data());
 };
 
-async function deleteUser(identifier: string) {
+async function deleteUser(identifier: string): Promise<string> {
   try {
     await deleteDoc(getUsersRef(identifier));
     return "User deleted successfully!"
