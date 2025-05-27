@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Cart } from "../Shop/Cart/Cart";
 import { useSearch } from "../Search/SearchContext";
 import { SearchInput } from "../Search/SearchInput";
-import { navItems } from '../../config/site-navigation';
+import { navbarLeft, navbarRight } from '../../config/site-navigation';
 import { AuthModalManager } from "../../auth/AuthModalManager";
 import { useAuth } from "../../auth/AuthContext";
 import searchIcon from "../../assets/search.png"
@@ -26,13 +26,13 @@ export const Navbar = () => {
       setIsMenuVisible(false);
   };
 
-  const handleMouseEnter = (item: NavItem) => {
+  const handleMouseEnter = (itemId: string) => {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
       hoverTimeoutRef.current = null;
     }
 
-    setHoveredId(item.id);
+    setHoveredId(itemId);
     setIsMenuVisible(true);
   };
 
@@ -46,13 +46,13 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar">
-      {navItems.map((item) => {
+      {navbarLeft.map(item => {
         const isHovered = hoveredId === item.id;
         return (
           <div 
             className="nav-container" 
             key={item.id}
-            onMouseEnter={() => handleMouseEnter(item)}
+            onMouseEnter={() => handleMouseEnter(item.id)}
             onMouseLeave={handleMouseLeave}
           >
             <Link 
@@ -62,9 +62,9 @@ export const Navbar = () => {
                 {item.label}
             </Link>
 
-              {isHovered && (
+              {isHovered && item.menuItems && (
                 <HoveredMenu 
-                  menu={item} 
+                  menuItems={item.menuItems} 
                   onItemClick={handleNavClick}
                   isVisible={isMenuVisible}
                 />
@@ -74,36 +74,45 @@ export const Navbar = () => {
        )
       })}
       <SearchToggle isSearching={isSearching} setIsSearching={setIsSearching} />
+
       <div className="navbar-right">
         <LoginNav 
           label={isLoggedIn ? "Log out" : "Log in"}
           onClick={isLoggedIn ? logout :  () => setShowLoginModal(true)}/>
         {showLoginModal && <AuthModalManager onClose={() => setShowLoginModal(false)} /> }
-        <div className="nav-container">
+
+        <div className="nav-container"
+          onMouseEnter={() => handleMouseEnter("manage")}
+          onMouseLeave={handleMouseLeave}
+        >
           <Link
             className="nav"
-            to="/orders"
+            to="/manageLanding"
             onClick={handleNavClick}
           >
-            Orders
+            Manage
           </Link>
+          {
+          navbarRight[0].menuItems && hoveredId === "manage" &&
+           <HoveredMenu menuItems={navbarRight[0].menuItems} onItemClick={handleNavClick} isVisible={isMenuVisible} />}
         </div>
+
         <Cart />
       </div>
     </nav>  
   );
 };
 
-const HoveredMenu = (
-  { menu, 
-    onItemClick, 
-    isVisible 
-  }: 
-  { menu: NavItem; 
-    onItemClick: () => void;
-    isVisible: boolean;
-  }) => {
-    
+
+type MenuItem = NonNullable<NavItem["menuItems"]>;
+
+interface HoverMenuProps {
+  menuItems: MenuItem; 
+  onItemClick: () => void;
+  isVisible: boolean;
+};
+
+const HoveredMenu = ({ menuItems, onItemClick, isVisible }: HoverMenuProps) => {
     const [activeItem, setActiveItem] = useState<string | null>(null);
 
     const handleClick = (id: string) => {
@@ -113,7 +122,7 @@ const HoveredMenu = (
 
     return (
       <div className={classNames("dropdown", { "visible": isVisible })}>
-        {menu.menuItems?.map((item) => (
+        {menuItems.map((item) => (
           <Link
             className={classNames('list-item', {
               'pop-out': activeItem === item.id
@@ -122,10 +131,11 @@ const HoveredMenu = (
             to={item.path}
             onClick={() => handleClick(item.id)}
           >
-            <img 
-              className={menu.id === "shop" ? "shop-icon" : "app-icon"} 
-              src={item.img} 
-            />
+            {item.img && 
+              <img 
+                className={item.imgStyle === "small" ? "small-menu-img" : "large-menu-img"} 
+                src={item.img} 
+              />}
             {item.label ? <label htmlFor={item.id}>{item.label}</label> : null}
           </Link>
         ))}

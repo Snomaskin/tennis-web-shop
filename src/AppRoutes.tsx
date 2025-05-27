@@ -6,6 +6,8 @@ import { useText } from "./data/texts.ts";
 import { MatchPredictor } from "./components/apps/MatchPredictor.tsx";
 import { Checkout } from "./components/Shop/Checkout/Checkout.tsx";
 import { Orders } from "./components/Shop/Orders/Orders.tsx";
+import { AdminPanel } from "./components/AdminPanel/AdminPanel.tsx";
+import { ManageLanding } from "./components/AdminPanel/ManageLanding.tsx";
 
 
 export const AppRoutes = () => {
@@ -19,6 +21,8 @@ export const AppRoutes = () => {
             <Route path="/about" element={<TextPage {...useText('about')}/>} />
             <Route path="/checkout" element={<Checkout />}/>
             <Route path="/orders" element={<Orders />} />
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/manageLanding" element={<ManageLanding />} />
         </Routes>
     );
 }
