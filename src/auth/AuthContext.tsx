@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, getIdTokenResult, User } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, firestore } from "../config/firebase";
 import { getErrorMessage } from "../utils/getErrorMessage";
@@ -14,13 +14,13 @@ interface FullUser {
 };
 
 type UserProfile =  Omit<FullUser, "password">;
-type PublicUser = Omit<FullUser, "password" | "favFood">;
 type LoginFields = Pick<FullUser, "email" | "password">;
 type SignupFields = Omit <FullUser, "userId">;
 
 interface AuthContextType {
-  currentUser: PublicUser | null;
+  currentUser: UserProfile | null;
   isLoggedIn: boolean | null;
+  isAdmin: boolean;
   login: (credentials: LoginFields) => Promise<void | string>;
   signup: (data: SignupFields) => Promise<string>;
   logout: () => void;
@@ -30,12 +30,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-  const [currentUser, setCurrentUser] = useState<PublicUser | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const login = async ({ email, password }: LoginFields) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const publicUser = await getPublicUser(userCredential);
+      checkAdmin(userCredential.user);
       setCurrentUser(publicUser);
       setIsLoggedIn(true);
       return "Login successful!"
@@ -46,11 +48,17 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   };
 
+  const checkAdmin = async (user: User) => {
+    const token = await user.getIdTokenResult();
+    const isAdmin = !!token.claims.admin;
+    setIsAdmin(isAdmin);
+  };
+
   const signup = async ({ name, email, password, favFood }: SignupFields) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userId = userCredential.user.uid;
-      const userProfile: UserProfile = {
+      const userProfile = {
         userId,
         name,
         email,
@@ -68,15 +76,23 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setIsLoggedIn(null);
     setCurrentUser(null);
+    setIsAdmin(false);
   };
 
   return (
-  <AuthContext.Provider value={{currentUser, isLoggedIn, login, signup, logout}}> 
+  <AuthContext.Provider value={{
+    currentUser, 
+    isLoggedIn, 
+    isAdmin,
+    login, 
+    signup, 
+    logout
+    }}> 
     {children}
   </AuthContext.Provider>)
 };
 
-const getPublicUser = async (userCredential: UserCredential): Promise<PublicUser> => {
+const getPublicUser = async (userCredential: UserCredential): Promise<UserProfile> => {
   const uid = userCredential.user.uid;
   const docRef = doc(firestore, "users", uid);
   const docSnap = await getDoc(docRef);
@@ -89,6 +105,7 @@ const getPublicUser = async (userCredential: UserCredential): Promise<PublicUser
       userId: uid,
       name: data.name,
       email: data.email,
+      favFood: data.favFood,
     };
 };
 
@@ -102,4 +119,4 @@ const useAuth = () => {
 
 
 export { AuthProvider, useAuth };
-export type { FullUser, PublicUser, UserProfile, LoginFields, SignupFields };
+export type { UserProfile, LoginFields, SignupFields };
