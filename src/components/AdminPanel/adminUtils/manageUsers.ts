@@ -1,11 +1,11 @@
 import { firestore } from "../../../config/firebase";
 import {
-  collection, doc, getDoc, getDocs, deleteDoc, query, startAt, endAt, orderBy, QueryDocumentSnapshot, DocumentData
+  collection, doc, getDoc, getDocs, deleteDoc, query, startAt, endAt, orderBy, QueryDocumentSnapshot, DocumentData, FirestoreDataConverter
 } from "firebase/firestore";
 import { UserProfile } from "../../../auth/AuthContext";
 
 
-const userFirestoreConverter = {
+const userFirestoreConverter: FirestoreDataConverter<UserProfile> = {
   toFirestore(user: UserProfile): DocumentData {
     return {
       name: user.name,
@@ -31,8 +31,14 @@ function getUsersRef(id: string) {
 };
 
 async function listUsers(): Promise<UserProfile[]> {
-  const snapshot = await getDocs(usersRef);
-  return snapshot.docs.map(doc => doc.data());
+  try {
+    const snapshot = await getDocs(usersRef);
+    return snapshot.docs.map(doc => doc.data());
+
+  } catch (error){
+    console.error("Error fetching users: ", error);
+    throw error
+  }
 };
 
 async function findUser(identifier: string) {
