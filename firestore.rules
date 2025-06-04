@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  function isAdmin() {
+    return request.auth != null && request.auth.token.admin == true;
+  }
+
+  match /databases/{database}/documents {
+    // Users collection
+    match /users/{userId} {
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow read: if 
+      // Admin can read any
+        isAdmin() ||
+      // Users can find their own profile only
+        request.auth != null && request.auth.uid == userId;
+    }
+
+    // Products collection
+    match /products/{productId} {
+      // Anyone can see all products
+      allow read;
+
+      // Admin priviledges
+      allow create, write: if 
+        isAdmin();
+    }
+    // Orders collection
+    match /orders/{orderId} {
+      allow read: if
+        (request.auth != null && resource.data.userId == request.auth.uid) ||
+        resource.data.userId == null;
+
+      // Allow creating orders if:
+      // - the user is logged in and owns the order
+      // - or the user is not logged in (guest order with no userId)
+      allow create: if 
+        (request.auth != null && request.resource.data.userId == request.auth.uid) ||
+        (request.auth == null && request.resource.data.userId == null)
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, getIdTokenResult, User } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, signOut, User } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, firestore } from "../config/firebase";
 import { getErrorMessage } from "../utils/getErrorMessage";
@@ -73,7 +73,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await signOut(auth);
     setIsLoggedIn(null);
     setCurrentUser(null);
     setIsAdmin(false);
@@ -87,7 +88,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     login, 
     signup, 
     logout
-    }}> 
+  }}> 
     {children}
   </AuthContext.Provider>)
 };
