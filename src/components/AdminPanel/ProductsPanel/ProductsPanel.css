@@ -9,16 +9,15 @@
   min-width: 300px;
 }
 
-.product-submit-form h2 {
-  margin: 0;
+.admin-fetch-form .input-label {
+  text-indent: 0.5rem;
   color: #1f2937;
-  font-size: 1.5rem;
   font-weight: 700;
-  text-align: center;
+
 }
-.product-submit-form input {
+.admin-fetch-form input {
   display: flex;
-  min-width: 200px;
+  min-width: 29rem;
 }
 
 .product-form-footer {

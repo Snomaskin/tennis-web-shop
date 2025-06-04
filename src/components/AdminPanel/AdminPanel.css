@@ -25,7 +25,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 120px;
+  width: 140px;
 }
 
 .admin-panel-selection button:hover {
@@ -49,6 +49,9 @@
 }
 
 .admin-fetch-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #f1f5f9;
   padding: 1.5rem;
   border-radius: 8px;
@@ -63,7 +66,9 @@
 }
 
 .admin-fetch-form select {
-  width: 100%;
+  display: flex;
+  text-align: center;
+  width: 32rem;
   padding: 0.75rem;
   border: 2px solid #e2e8f0;
   border-radius: 6px;
@@ -75,8 +80,7 @@
 
 .admin-panel button[type="submit"] {
   display: flex;
-  justify-self: flex-end;
-  margin-right: 2rem;
+  justify-self: center;
   background: #3b82f6;
   color: white;
   border: none;

@@ -25,7 +25,7 @@ const productFirestoreConverter = {
 const productsRef = collection(firestore, "products").withConverter(productFirestoreConverter);
 
 function getProductRef(id: string) {
-  return doc(firestore, "product", id).withConverter(productFirestoreConverter);
+  return doc(firestore, "products", id).withConverter(productFirestoreConverter);
 };
 
 async function listProducts(category?: keyof ProductCategory) {

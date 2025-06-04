@@ -60,7 +60,7 @@ export const UsersPanel = () => {
           return (
             <li className="admin-list-item" key={userId}>
               <div className="admin-list-item-details">
-                {userId} <br/>
+                Firebase ID: {userId} <br/>
                 {name} <br/>
                 {email} <br/>
               </div>

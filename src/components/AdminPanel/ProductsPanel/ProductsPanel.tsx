@@ -16,7 +16,7 @@ export const ProductsPanel = () => {
   type FetchOptionKey = typeof fetchOptions[number]["key"];
   type FormData = Partial<Record<FetchOptionKey, string>>;
   const { register, handleSubmit } = useForm<FormData>();
-  const [selectedOption, setSelectedOption] = useState<FetchOptionKey | null>(null);
+  const [selectedOption, setSelectedOption] = useState<FetchOptionKey>("listAllProducts");
   const [fetchedData, setFetchedData] = useState<Product[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -52,7 +52,6 @@ export const ProductsPanel = () => {
     if (selectedOption === "findProduct" && data.findProduct) {
       result = await findProduct(data.findProduct);
     };
-
     setFetchedData(result);
   };
 
