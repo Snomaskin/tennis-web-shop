@@ -1,13 +1,12 @@
-import type { Product, Promotion, PromoProduct, ProductCategory } from "../data/products";
+import type { Product, Promotion, PromoProduct } from "../data/products";
 
 
 const getPromosFromAll = (
-  products: ProductCategory, 
+  products: Product[], 
   promotions: Promotion[]
 ): PromoProduct[] => {
-  const allProducts = Object.values(products).flat();
   return promotions.map(promo => {
-    const product = allProducts.find(p => p.id === promo.id);
+    const product = products.find(p => p.originalId === promo.id);
     if (!product) return null;
 
     const price =  
@@ -31,7 +30,7 @@ const applyPromosToProducts = (
   const promoMap = new Map(promotions.map(p => [p.id, p]));
 
   const updatedProducts: Product[] = products.map(product => {
-      const promo = promoMap.get(product.id);
+      const promo = promoMap.get(product.originalId);
       if (!promo) return product;
 
       const promoPrice =

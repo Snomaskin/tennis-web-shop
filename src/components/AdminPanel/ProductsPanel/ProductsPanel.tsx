@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { InputWithError } from "../../utilComponents/InputWithError/InputWithError";
-import { listProducts, findProduct, addProduct, deleteProduct } from "../adminUtils/manageProducts";
+import { listProducts, findProduct, addProduct, deleteProduct } from "../../../utils/manageProducts";
 import { Product } from "../../../data/products";
 import { StandardModal } from "../../utilComponents/StandardModal/StandardModal";
 import "./ProductsPanel.css"

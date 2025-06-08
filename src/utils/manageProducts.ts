@@ -1,13 +1,17 @@
-import { firestore } from "../../../config/firebase";
-import { collection, query, where, getDocs, getDoc, doc, addDoc, deleteDoc, DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
-import { Product, ProductCategory } from "../../../data/products";
+import { firestore } from "../config/firebase";
+import { collection, query, where, getDocs, doc, addDoc, deleteDoc, DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { Product, ProductCategory } from "../data/products";
+import { applyPromosToProducts } from "./promoUtils";
+import { Promotion } from "../data/products";
+import { preloadImages } from "./preloadImages";
+
 
 const productFirestoreConverter = {
   toFirestore(product: Product): DocumentData {
     return {
       name: product.name,
       price: product.price,
-      imageUrl:product.imageUrl
+      imageUrl: product.imageUrl
     };
   },
 
@@ -15,6 +19,7 @@ const productFirestoreConverter = {
     const data = snapshot.data();
     return {
       id: snapshot.id,
+      originalId: data.originalId,
       name: data.name,
       price: data.price,
       imageUrl: data.imageUrl,
@@ -36,10 +41,21 @@ async function listProducts(category?: keyof ProductCategory) {
   return snapshot.docs.map((doc) => doc.data());
 };
 
-async function findProduct(identifier: string) {
-  const snapshot = await getDoc(getProductRef(identifier));
-  if (!snapshot.exists()) return [];
-  return [snapshot.data()];
+async function fetchShopProducts(category?: string, promotions?: Promotion[]) {
+  let products: Product[] = [];
+  products = await listProducts(category);
+  if (promotions) products = applyPromosToProducts(products, promotions);
+  const imgUrls = products.map(item => item.imageUrl);
+  // const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
+  await preloadImages(imgUrls);
+  return products;
+};
+
+async function findProduct(searchterm: string) {
+  const allProducts = await listProducts();
+  const matches = allProducts.filter(product => 
+    product.name.toLocaleLowerCase().includes(searchterm.toLocaleLowerCase()));
+  return matches;
 };
 
 async function addProduct(product: Product) {
@@ -62,4 +78,4 @@ async function deleteProduct(firebaseId: string) {
   };
 };
 
-export { listProducts, findProduct, addProduct, deleteProduct };
+export { listProducts, findProduct, fetchShopProducts, addProduct, deleteProduct };

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Product, products } from '../../data/products';
+import { Product } from '../../data/products';
+import { findProduct } from '../../utils/manageProducts';
 
 
 interface SearchContextType {
@@ -15,18 +16,13 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     const [searchResults, setSearchResults] = useState<Product[]>([]);
     const [isSearching, setIsSearching] = useState(false);
 
-    const handleSearch = (searchTerm: string) => {
-        if (!searchTerm.trim()) {
+    const handleSearch = async (searchterm: string) => {
+        if (!searchterm.trim()) {
           setSearchResults([]);
           return;
-        }
-
-        const searchTermLowerCase = searchTerm.toLowerCase();
-        const results = Object.values(products)
-          .flat()
-          .filter(product => product.name.toLowerCase().includes(searchTermLowerCase));
-
-        setSearchResults(results);
+        };
+        const products = await findProduct(searchterm)
+        setSearchResults(products);
     };
 
     return (

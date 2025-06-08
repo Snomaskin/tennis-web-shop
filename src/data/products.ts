@@ -1,5 +1,14 @@
 interface Product {
   id: string;
+  originalId: string;
+  name: string;
+  price: number;
+  promoPrice?: boolean;
+  imageUrl: string;
+};
+
+interface OldProduct {
+  id: string;
   name: string;
   price: number;
   promoPrice?: boolean;
@@ -9,10 +18,10 @@ interface Product {
 interface PromoProduct extends Product {
   originalPrice: number;
   promoLabel?: string;
-}
+};
 
 interface ProductCategory {
-  [category: string]: Product[]
+  [category: string]: OldProduct[]
 };
 
 type Promotion =
@@ -24,7 +33,15 @@ const specialPromos: Promotion[] = [
   {id: 'wilsonPro', discount: 0.3},
   {id: 'dunlopFx500', discount: 0.4},
   {id: 'wilsonBlade', discount: 0.2},
-]
+  {id: 'babolatBall', discount: 0.5},
+  {id: 'dunlopBall', discount: 0.5},
+  {id: 'wilsonUSOpenBall', discount: 0.5},
+  {id: 'tretornMicroBall', discount: 0.2},
+  {id: 'adidasClub', discount: 0.3},
+  {id: 'nikeTourPremium', discount: 0.3},
+  {id: 'filaFundamentals', discount: 0.3},
+  {id: 'headPerformance', discount: 0.3},
+];
 
 const promotions: Promotion[] = [
   {id: 'headRacquet', discount: 0.4},
@@ -43,7 +60,7 @@ const promotions: Promotion[] = [
 
 const promoTexts: { promoHeader?: string, promoText?: string } = {
   promoHeader: "Hot deals selected for you!"
-}
+};
 
 const products: ProductCategory = {
     balls: [
